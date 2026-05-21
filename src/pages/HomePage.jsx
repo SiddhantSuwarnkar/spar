@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 export default function HomePage() {
   const { navigate } = useNavigation();
   const containerRef = useRef(null);
-  
+
   // Animation Refs
   const pitchRef = useRef(null);
   const teaserSectionRef = useRef(null);
@@ -20,11 +20,11 @@ export default function HomePage() {
 
   useGSAP(() => {
     // 1. Elevator Pitch Slide Up
-    gsap.fromTo(pitchRef.current, 
+    gsap.fromTo(pitchRef.current,
       { y: 60, opacity: 0 },
-      { 
-        y: 0, 
-        opacity: 1, 
+      {
+        y: 0,
+        opacity: 1,
         duration: 1,
         ease: 'power3.out',
         scrollTrigger: {
@@ -69,7 +69,7 @@ export default function HomePage() {
 
   return (
     <div ref={containerRef} className="w-full relative z-40 bg-white">
-      
+
       {/* 1. ELEVATOR PITCH SECTION */}
       <section className="bg-white py-24 md:py-32 px-6 md:px-20 border-b border-slate-100 flex items-center justify-center">
         <div ref={pitchRef} className="max-w-4xl text-center">
@@ -89,7 +89,7 @@ export default function HomePage() {
       {/* 2. SOLUTIONS TEASER CARDS */}
       <section ref={teaserSectionRef} className="bg-[#F1F5F9] py-24 px-6 md:px-20 border-b border-slate-200">
         <div className="max-w-7xl mx-auto">
-          
+
           <div className="text-center mb-16">
             <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block">
               Core Capabilities
@@ -100,9 +100,9 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            
+
             {/* Card 1: Machine Vision */}
-            <div 
+            <div
               ref={el => teaserCardsRef.current[0] = el}
               className="bg-white border border-slate-200/60 p-8 flex flex-col items-start shadow-sm hover:shadow-md transition-all duration-300 rounded-none group"
             >
@@ -117,7 +117,7 @@ export default function HomePage() {
               <p className="text-slate-700 text-sm leading-relaxed mb-6 font-normal">
                 High-resolution 2D/3D inspection systems, real-time quality control checks, and sub-millimeter part localization.
               </p>
-              <a 
+              <a
                 href="/solutions"
                 onClick={(e) => { e.preventDefault(); navigate('/solutions'); }}
                 className="text-xs font-bold text-[#0EA5E9] uppercase tracking-widest flex items-center gap-2 group-hover:text-[#0F172A] transition-colors duration-200 mt-auto"
@@ -127,7 +127,7 @@ export default function HomePage() {
             </div>
 
             {/* Card 2: Kinematic Assembly */}
-            <div 
+            <div
               ref={el => teaserCardsRef.current[1] = el}
               className="bg-white border border-slate-200/60 p-8 flex flex-col items-start shadow-sm hover:shadow-md transition-all duration-300 rounded-none group"
             >
@@ -141,7 +141,7 @@ export default function HomePage() {
               <p className="text-slate-700 text-sm leading-relaxed mb-6 font-normal">
                 High-speed picking cells, dual-arm synchronous kinematic systems, and intelligent custom gripper fabrication.
               </p>
-              <a 
+              <a
                 href="/solutions"
                 onClick={(e) => { e.preventDefault(); navigate('/solutions'); }}
                 className="text-xs font-bold text-[#0EA5E9] uppercase tracking-widest flex items-center gap-2 group-hover:text-[#0F172A] transition-colors duration-200 mt-auto"
@@ -151,7 +151,7 @@ export default function HomePage() {
             </div>
 
             {/* Card 3: Robotic Welding */}
-            <div 
+            <div
               ref={el => teaserCardsRef.current[2] = el}
               className="bg-white border border-slate-200/60 p-8 flex flex-col items-start shadow-sm hover:shadow-md transition-all duration-300 rounded-none group"
             >
@@ -165,7 +165,7 @@ export default function HomePage() {
               <p className="text-slate-700 text-sm leading-relaxed mb-6 font-normal">
                 Consistent seam-welding cells, path tracking micro-sensors, and active heat control algorithms for metal assembly.
               </p>
-              <a 
+              <a
                 href="/solutions"
                 onClick={(e) => { e.preventDefault(); navigate('/solutions'); }}
                 className="text-xs font-bold text-[#0EA5E9] uppercase tracking-widest flex items-center gap-2 group-hover:text-[#0F172A] transition-colors duration-200 mt-auto"
@@ -182,7 +182,7 @@ export default function HomePage() {
       {/* 3. FEATURED WORK GRID */}
       <section ref={featuredRef} className="bg-white py-24 px-6 md:px-20 border-b border-slate-100">
         <div className="max-w-7xl mx-auto">
-          
+
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
             <div>
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block">
@@ -192,7 +192,7 @@ export default function HomePage() {
                 Proven Deployments
               </h3>
             </div>
-            <button 
+            <button
               onClick={() => navigate('/projects')}
               className="bg-[#0F172A] text-white hover:bg-[#0EA5E9] px-6 py-3 rounded-none text-xs font-bold tracking-widest uppercase transition-all duration-300 shadow-md h-fit whitespace-nowrap"
             >
@@ -203,22 +203,22 @@ export default function HomePage() {
           {/* Grid Layout: Symmetric 3-column layout */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {projects.map((project, idx) => (
-              <div 
+              <div
                 key={project.id}
                 ref={el => featuredCardsRef.current[idx] = el}
                 onClick={() => navigate(`/projects/${project.slug}`)}
                 className="group relative aspect-[16/10] overflow-hidden bg-slate-900 border border-slate-200 shadow-sm cursor-pointer rounded-none"
               >
-                <video 
-                  src={project.video} 
+                <video
+                  src={project.video}
                   poster={project.image}
-                  autoPlay 
-                  loop 
-                  muted 
+                  autoPlay
+                  loop
+                  muted
                   playsInline
                   className="w-full h-full object-cover group-hover:scale-105 transition-all duration-700 opacity-90 group-hover:opacity-100"
                 />
-                
+
                 {/* Visual Engineering Overlay */}
                 <div className="absolute inset-0 bg-[#0F172A]/85 flex flex-col justify-between p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
                   <div className="flex justify-between items-start">
@@ -232,7 +232,7 @@ export default function HomePage() {
                       SYS_ID: 0{project.id}
                     </span>
                   </div>
-                  
+
                   <p className="text-slate-200 text-xs leading-relaxed max-w-md font-normal">
                     {project.challenge}
                   </p>
@@ -262,7 +262,7 @@ export default function HomePage() {
 
       {/* 4. TRUST BAR (LOGOS MARQUEE) */}
       <section className="bg-white py-12 border-b border-slate-100 overflow-hidden relative select-none">
-        
+
         {/* Subtle horizontal gradient fades on edges */}
         <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
         <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
@@ -276,7 +276,7 @@ export default function HomePage() {
         {/* Marquee Track using CSS keyframes animation */}
         <div className="flex items-center whitespace-nowrap overflow-hidden py-4">
           <div className="flex gap-16 items-center animate-marquee">
-            
+
             {/* Logos Set 1 */}
             <span className="text-lg font-bold tracking-widest text-slate-300 font-headings">AEROTECH SOLUTIONS</span>
             <span className="w-2.5 h-2.5 bg-[#0EA5E9] rounded-none shrink-0" />
@@ -300,7 +300,7 @@ export default function HomePage() {
             <span className="w-2.5 h-2.5 bg-slate-300 rounded-none shrink-0" />
             <span className="text-lg font-bold tracking-widest text-slate-300 font-headings">INTELLI-GRIP GROUP</span>
             <span className="w-2.5 h-2.5 bg-[#0EA5E9] rounded-none shrink-0" />
-            
+
           </div>
         </div>
 

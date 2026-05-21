@@ -32,9 +32,8 @@ function AppContent() {
   const sub2Ref = useRef(null);
   const blastTextRef = useRef(null);
 
-  const frameCount = 1006;
-  const scrubValue = 1.5;
-  const unstopFrameStart = 500;
+  // Optimized Frames
+  const frameCount = 353;
 
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -42,7 +41,9 @@ function AppContent() {
   const [loadingStage, setLoadingStage] = useState("Initializing Core...");
   const [firstFrameLoaded, setFirstFrameLoaded] = useState(false);
 
-  const sequence = useRef({ frame: 0 });
+  // sequence ref no longer needed for scrubbing — replaced by targetFrame/displayFrame
+  const targetFrame = useRef(0);
+  const displayFrame = useRef(0);
 
   // 1. Initialize Lenis Smooth Scroll
   useEffect(() => {
@@ -76,18 +77,17 @@ function AppContent() {
     }
   }, [loading, path, isTransitioning]);
 
-  // Reset scroll to top on page transition (Lenis compatible)
+  // Reset scroll to top on page transition
   useEffect(() => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     }
-    // Refresh ScrollTriggers to update heights for the new page
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
   }, [path]);
 
-  // Preload Images with progress reporting
+  // Preload Images
   useEffect(() => {
     let loadedCount = 0;
     const loadedImages = [];
@@ -137,16 +137,51 @@ function AppContent() {
     setImages(loadedImages);
   }, [frameCount]);
 
-  // The "Living Hero" & Subtitle GSAP Logic
+  // THE LIVING HERO: Lerp-Smoothed Frame Scrubbing
   useGSAP(() => {
     if (images.length === 0 || path !== '/') return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const context = canvas.getContext("2d");
+
+    // Draw frame 0 immediately on mount
+    const firstImg = images[0];
+    if (firstImg && firstImg.naturalWidth !== 0) {
+      context.drawImage(firstImg, 0, 0, canvas.width, canvas.height);
+    }
+
+    // --- SCROLL → TARGET FRAME (no rendering here) ---
+    // ScrollTrigger only updates the target; rendering is handled by the RAF ticker below
+    ScrollTrigger.create({
+      trigger: mainWrapperRef.current,
+      start: "top top",
+      end: "+=12000",
+      onUpdate: (self) => {
+        targetFrame.current = self.progress * (frameCount - 1);
+      }
+    });
+
+    // --- LERP RAF LOOP → SMOOTH CANVAS DRAW ---
+    // displayFrame chases targetFrame at LERP_FACTOR speed each tick.
+    // Fast scroll = large diff = fast catch-up.
+    // Slow/stopped scroll = diff shrinks = gentle ease-out. No jitter.
+    const LERP_FACTOR = 0.08;
     const lastRenderedFrame = { current: -1 };
 
-    const render = () => {
-      const frameIndex = Math.min(images.length - 1, Math.max(0, Math.round(sequence.current.frame)));
+    const ticker = gsap.ticker.add(() => {
+      const diff = targetFrame.current - displayFrame.current;
+
+      // Skip redraw if we're already close enough — avoids wasted draws at rest
+      if (Math.abs(diff) < 0.05) return;
+
+      displayFrame.current += diff * LERP_FACTOR;
+
+      const frameIndex = Math.min(
+        frameCount - 1,
+        Math.max(0, Math.round(displayFrame.current))
+      );
+
+      // Skip if same frame as last draw
       if (frameIndex === lastRenderedFrame.current) return;
 
       const img = images[frameIndex];
@@ -155,50 +190,29 @@ function AppContent() {
       context.clearRect(0, 0, canvas.width, canvas.height);
       context.drawImage(img, 0, 0, canvas.width, canvas.height);
       lastRenderedFrame.current = frameIndex;
-    };
-    render();
+    });
 
-    let autoScrolling = false;
-    const scrollTl = gsap.timeline({
+    // --- TEXT TIMELINE (separate, scroll-driven) ---
+    // Text uses its own ScrollTrigger with scrub: 1 for slight smoothing.
+    // Kept decoupled from canvas so text never blocks frame rendering.
+    const textTl = gsap.timeline({
       scrollTrigger: {
         trigger: mainWrapperRef.current,
         start: "top top",
         end: "+=12000",
-        scrub: scrubValue,
-        onUpdate: (self) => {
-          if (unstopFrameStart > 0 && self.direction === 1 && !autoScrolling) {
-            const currentFrame = sequence.current.frame;
-            if (currentFrame >= unstopFrameStart) {
-              autoScrolling = true;
-              lenisRef.current?.scrollTo(self.end, {
-                duration: 2.0,
-                onComplete: () => {
-                  autoScrolling = false;
-                }
-              });
-            }
-          }
-          if (self.direction === -1) {
-            autoScrolling = false;
-          }
-        }
+        scrub: 1,
       }
     });
 
-    scrollTl.fromTo(sequence.current,
-      { frame: 0 },
-      { frame: frameCount - 1, ease: "none", duration: 1, onUpdate: render },
-      0
-    );
+    textTl
+      .fromTo(sub1Ref.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.05 }, 0.2)
+      .to(sub1Ref.current, { opacity: 0, y: -30, duration: 0.05 }, 0.4)
+      .fromTo(sub2Ref.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.05 }, 0.5)
+      .to(sub2Ref.current, { opacity: 0, y: -30, duration: 0.05 }, 0.7)
+      .fromTo(blastTextRef.current, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.1 }, 0.9);
 
-    // Subtitles (Slate charcoal text with soft light glow shadow for high legibility over frames)
-    scrollTl.fromTo(sub1Ref.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.05 }, 0.2)
-      .to(sub1Ref.current, { opacity: 0, y: -30, duration: 0.05 }, 0.4);
-
-    scrollTl.fromTo(sub2Ref.current, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.05 }, 0.5)
-      .to(sub2Ref.current, { opacity: 0, y: -30, duration: 0.05 }, 0.7);
-
-    scrollTl.fromTo(blastTextRef.current, { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.1 }, 0.9);
+    // Cleanup ticker on unmount / dependency change
+    return () => gsap.ticker.remove(ticker);
 
   }, { dependencies: [images, path, firstFrameLoaded] });
 
@@ -210,7 +224,6 @@ function AppContent() {
     if (path.startsWith('/projects/')) return <ProjectDetailPage />;
     if (path === '/about') return <AboutPage />;
     if (path === '/contact') return <ContactPage />;
-    // Fallback
     return <HomePage />;
   };
 
@@ -284,31 +297,23 @@ function AppContent() {
             />
           </div>
 
-          {/* FIXED UI OVERLAYS (Charcoal text colors overlaying the bright translucent video background) */}
+          {/* FIXED UI OVERLAYS */}
           <div className="fixed inset-0 pointer-events-none z-20 flex flex-col items-center justify-center text-center px-4">
-
-            {/* Subtitle 1 - Styled for cinema */}
             <h2 ref={sub1Ref} className="absolute bottom-[15%] text-3xl md:text-5xl font-bold text-[#0F172A] drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] tracking-wide font-headings">
               Precision redefined.
             </h2>
-
-            {/* Subtitle 2 */}
             <h2 ref={sub2Ref} className="absolute bottom-[15%] text-3xl md:text-5xl font-bold text-[#0F172A] drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] tracking-wide font-headings">
               Connecting hardware to the digital twin.
             </h2>
-
-            {/* Final Blast Text */}
             <div ref={blastTextRef} className="absolute inset-0 flex flex-col items-center justify-center">
               <h1 className="text-7xl md:text-[140px] font-black text-[#0F172A] tracking-tighter leading-none drop-shadow-[0_4px_15px_rgba(255,255,255,0.9)] font-headings">
                 SYSTEM <br /><span className="text-slate-500">ONLINE.</span>
               </h1>
             </div>
-
           </div>
 
-          {/* HERO TEXT OVERLAY (Fades out naturally) */}
+          {/* HERO TEXT OVERLAY */}
           <div className="relative z-30 pointer-events-auto">
-            {/* Renders the top Hero overlay */}
             <HomePageHero />
           </div>
         </div>
@@ -334,77 +339,39 @@ function PageTransitionOverlay({ active }) {
 
   useEffect(() => {
     if (active) {
-      // 1. Reset states & ensure it is block-clicking
       gsap.killTweensOf([overlayRef.current, textRef.current, barRef.current]);
-      
-      gsap.set(overlayRef.current, { 
-        display: 'flex', 
+
+      gsap.set(overlayRef.current, {
+        display: 'flex',
         opacity: 0,
         pointerEvents: 'auto'
       });
       gsap.set(textRef.current, { y: 30, opacity: 0 });
       gsap.set(barRef.current, { width: '0%' });
 
-      // 2. Animate In
-      gsap.to(overlayRef.current, {
-        opacity: 1,
-        duration: 0.4,
-        ease: 'power3.out'
-      });
-
-      gsap.to(textRef.current, {
-        y: 0,
-        opacity: 1,
-        duration: 0.4,
-        delay: 0.15,
-        ease: 'power2.out'
-      });
-
-      gsap.to(barRef.current, {
-        width: '100%',
-        duration: 0.6,
-        ease: 'power2.inOut'
-      });
+      gsap.to(overlayRef.current, { opacity: 1, duration: 0.4, ease: 'power3.out' });
+      gsap.to(textRef.current, { y: 0, opacity: 1, duration: 0.4, delay: 0.15, ease: 'power2.out' });
+      gsap.to(barRef.current, { width: '100%', duration: 0.6, ease: 'power2.inOut' });
     } else {
-      // Animate Out
       gsap.killTweensOf([overlayRef.current, textRef.current, barRef.current]);
 
-      gsap.to(textRef.current, {
-        y: -30,
-        opacity: 0,
-        duration: 0.35,
-        ease: 'power3.in'
-      });
-
+      gsap.to(textRef.current, { y: -30, opacity: 0, duration: 0.35, ease: 'power3.in' });
       gsap.to(overlayRef.current, {
         opacity: 0,
         duration: 0.4,
         delay: 0.1,
         ease: 'power3.inOut',
         onComplete: () => {
-          gsap.set(overlayRef.current, { 
-            display: 'none',
-            pointerEvents: 'none'
-          });
+          gsap.set(overlayRef.current, { display: 'none', pointerEvents: 'none' });
         }
       });
     }
   }, [active]);
 
   return (
-    <div
-      ref={overlayRef}
-      className="fixed inset-0 z-[9999] bg-[#0F172A] flex flex-col items-center justify-center pointer-events-none select-none text-white"
-      style={{ display: 'none' }}
-    >
-      {/* Diagnostics Scanline Grid Overlay */}
-      <div 
-        className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.96),rgba(15,23,42,0.96)),repeating-linear-gradient(0deg,rgba(0,0,0,0.2) 0px,rgba(0,0,0,0.2) 1px,transparent 1px,transparent 3px)] pointer-events-none" 
-        style={{ backgroundSize: '100% 100%, 100% 6px' }} 
-      />
-
+    <div ref={overlayRef} className="fixed inset-0 z-[9999] bg-[#0F172A] flex flex-col items-center justify-center pointer-events-none select-none text-white" style={{ display: 'none' }}>
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.96),rgba(15,23,42,0.96)),repeating-linear-gradient(0deg,rgba(0,0,0,0.2) 0px,rgba(0,0,0,0.2) 1px,transparent 1px,transparent 3px)] pointer-events-none" style={{ backgroundSize: '100% 100%, 100% 6px' }} />
       <div ref={textRef} className="relative z-10 flex flex-col items-center text-center max-w-sm w-full px-8">
-        {/* Futuristic Ring Scanner */}
         <div className="mb-6 relative flex items-center justify-center">
           <div className="w-14 h-14 border border-slate-800 rounded-full flex items-center justify-center animate-spin" style={{ animationDuration: '4s' }}>
             <div className="w-10 h-10 border-t border-[#0EA5E9] border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin" style={{ animationDuration: '1.2s' }} />
@@ -413,24 +380,12 @@ function PageTransitionOverlay({ active }) {
             SPAR
           </div>
         </div>
-
-        {/* Text Details */}
-        <h4 className="text-[10px] font-mono text-[#0EA5E9] uppercase tracking-[0.3em] mb-2 font-bold">
-          System Node Transition
-        </h4>
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] font-headings text-slate-300">
-          Routing Sequence Active
-        </h3>
-
-        {/* Progress Bar */}
+        <h4 className="text-[10px] font-mono text-[#0EA5E9] uppercase tracking-[0.3em] mb-2 font-bold">System Node Transition</h4>
+        <h3 className="text-xs font-bold uppercase tracking-[0.2em] font-headings text-slate-300">Routing Sequence Active</h3>
         <div className="w-full h-[1px] bg-slate-800 mt-6 rounded-full overflow-hidden">
           <div ref={barRef} className="h-full bg-[#0EA5E9] w-0" />
         </div>
-        
-        {/* Small subtext metrics */}
-        <span className="text-[8px] font-mono text-slate-600 mt-3 uppercase tracking-widest">
-          SYS_ROUTE_CONNECTING // PORT_80_OK
-        </span>
+        <span className="text-[8px] font-mono text-slate-600 mt-3 uppercase tracking-widest">SYS_ROUTE_CONNECTING // PORT_80_OK</span>
       </div>
     </div>
   );
@@ -458,12 +413,9 @@ function HomePageHero() {
     <section ref={sectionRef} className="h-screen w-full relative bg-transparent overflow-hidden flex items-center">
       <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-20 grid grid-cols-12 pointer-events-none">
         <div ref={textRef} className="col-span-12 lg:col-span-6 text-left p-8 md:p-10 bg-white/60 backdrop-blur-[4px] border-l-4 border-[#0EA5E9] shadow-sm rounded-none">
-          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-4 block">
-            Advanced Robotics & Custom Integration
-          </span>
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-4 block">Advanced Robotics & Custom Integration</span>
           <h1 className="text-5xl md:text-7xl font-bold text-[#0F172A] mb-6 tracking-tight leading-[1.1] font-headings">
-            Industrial <br />
-            Intelligence.
+            Industrial <br /> Intelligence.
           </h1>
           <p className="text-slate-700 text-base md:text-lg max-w-md mb-10 leading-relaxed font-normal">
             We engineer bespoke automation systems and robotic workcells that maximize manufacturing throughput, eliminate human error, and deliver high-precision performance at scale.
