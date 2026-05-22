@@ -10,13 +10,19 @@ export default function Hero() {
   const videoRef = useRef(null);
 
   const heroBoxRef = useRef(null);
-  const sub1Ref = useRef(null);
-  const sub2Ref = useRef(null);
-  const blastTextRef = useRef(null);
+  // Vision Cards Refs
+  const card1Ref = useRef(null);
+  const card2Ref = useRef(null);
+  const card3Ref = useRef(null);
 
   // New HUD & Wow refs
   const progressRef = useRef(null);
   const coordsRef = useRef(null);
+  
+  // Left-side HUD console refs
+  const hudRef = useRef(null);
+  const hudLine1Ref = useRef(null);
+  const hudLine2Ref = useRef(null);
 
   const { contextSafe } = useGSAP(() => {
     const video = videoRef.current;
@@ -31,15 +37,19 @@ export default function Hero() {
       masterTl
         .addLabel("trans1", 1)
         .to(heroBoxRef.current, { opacity: 0, y: -50, duration: 1 }, "trans1")
-        .fromTo(sub1Ref.current, { clipPath: "inset(0% 100% 0% 0%)", opacity: 1, y: 0 }, { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, y: 0, duration: 1 }, "trans1")
+        .fromTo(hudRef.current, { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 1 }, "trans1")
+        .fromTo(card1Ref.current, { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1 }, "trans1+=0.5")
+        
         .addLabel("trans2", 4)
-        .to(sub1Ref.current, { opacity: 0, y: -30, duration: 1 }, "trans2")
-        .fromTo(sub2Ref.current, { clipPath: "inset(0% 100% 0% 0%)", opacity: 1, y: 0 }, { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, y: 0, duration: 1 }, "trans2")
+        .to(card1Ref.current, { opacity: 0, y: -30, duration: 1 }, "trans2")
+        .fromTo(card2Ref.current, { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, "trans2")
+        .fromTo(hudLine1Ref.current, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5 }, "trans2")
+        .fromTo(hudLine2Ref.current, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.5 }, "trans2+=0.5")
+
         .addLabel("trans3", 7)
-        .to(sub2Ref.current, { opacity: 0, y: -30, duration: 1 }, "trans3")
-        .fromTo(blastTextRef.current, { clipPath: "inset(0% 100% 0% 0%)", opacity: 1, scale: 0.8 }, { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, scale: 1, duration: 1 }, "trans3")
-        // The glitch effect
-        .to(blastTextRef.current, { x: 5, textShadow: "4px 0 rgba(255,0,0,0.8), -4px 0 rgba(0,255,255,0.8)", duration: 0.05, yoyo: true, repeat: 7 }, "trans3+=0.8");
+        .to(card2Ref.current, { opacity: 0, y: -30, duration: 1 }, "trans3")
+        .to(hudRef.current, { opacity: 0, x: -50, duration: 1 }, "trans3")
+        .fromTo(card3Ref.current, { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 1 }, "trans3");
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
@@ -98,40 +108,89 @@ export default function Hero() {
 
         <div ref={heroBoxRef} className="absolute inset-0 flex items-center justify-start pointer-events-auto">
           <div className="w-full max-w-7xl mx-auto px-6 md:px-20 grid grid-cols-12 pointer-events-none">
-            <div className="relative col-span-12 lg:col-span-6 text-left p-8 md:p-10 bg-white/60 backdrop-blur-[4px] border-l-4 border-[#0EA5E9] shadow-sm pointer-events-auto">
-              {/* HUD Brackets */}
-              <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#0F172A] -translate-x-1 -translate-y-1"></div>
-              <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#0F172A] translate-x-1 -translate-y-1"></div>
-              <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#0F172A] -translate-x-1 translate-y-1"></div>
-              <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#0F172A] translate-x-1 translate-y-1"></div>
-
-              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-4 block">Industrial Automation</span>
-              <h1 className="text-5xl md:text-7xl font-bold text-[#0F172A] mb-6 tracking-tight leading-[1.1] font-headings">
-                Engineered <br /> Perfection.
-              </h1>
-              <p className="text-slate-700 text-base md:text-lg max-w-md mb-10 leading-relaxed font-normal">
-                We design and deploy intelligent robotic systems that operate with absolute precision and unyielding reliability.
-              </p>
-              <div className="flex items-center gap-4 text-xs font-bold tracking-[0.2em] uppercase text-[#0F172A]">
-                <span className="w-12 h-[2px] bg-[#0F172A]"></span>
-                Initiate Sequence
+            <div className="relative col-span-12 lg:col-span-6 p-1 bg-[#090E17]/30 backdrop-blur-lg border border-white/10 rounded-sm shadow-2xl pointer-events-auto flex flex-col">
+              {/* Glowing Corner Accents */}
+              <div className="absolute top-0 left-0 w-8 h-8 border-t-[3px] border-l-[3px] border-[#0EA5E9]"></div>
+              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-[3px] border-r-[3px] border-[#0EA5E9]"></div>
+              
+              {/* Content */}
+              <div className="p-8 md:p-12 text-left">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-[#0EA5E9] mb-4 block font-mono">
+                  [ SYS_ONLINE ] Industrial Automation
+                </span>
+                <h1 className="text-4xl md:text-5xl lg:text-[80px] font-black tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#0EA5E9] leading-[1.1] font-headings">
+                  Engineered <br /> Perfection.
+                </h1>
+                <p className="text-slate-200 text-sm md:text-base max-w-md mb-8 leading-relaxed font-normal drop-shadow-md">
+                  We design and deploy intelligent robotic systems that operate with absolute precision and unyielding reliability.
+                </p>
+                <div className="flex items-center gap-4 text-[10px] font-bold tracking-widest uppercase text-white font-mono">
+                  <span className="w-12 h-[2px] bg-[#0EA5E9]"></span>
+                  Initiate Sequence
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <h2 ref={sub1Ref} className="absolute bottom-[20%] text-3xl md:text-5xl font-bold text-white drop-shadow-md tracking-wide font-headings opacity-0">
-          Control the motion.
-        </h2>
+        {/* Left Side Telemetry HUD */}
+        <div ref={hudRef} className="absolute left-6 md:left-20 top-[40%] flex flex-col gap-4 font-mono text-[10px] md:text-xs text-[#0EA5E9] pointer-events-none opacity-0 text-left">
+          <div className="border-l-[3px] border-[#0EA5E9] pl-4 py-1.5 bg-[#090E17]/60 backdrop-blur-md rounded-r-sm shadow-md">
+            <span className="opacity-70 tracking-widest block mb-1">SYS_DIAGNOSTIC_RUN</span>
+            <span className="text-[#F8FAFC] font-bold tracking-wider">[ OK ] KINEMATICS ENGINE</span>
+          </div>
+          <div ref={hudLine1Ref} className="border-l-[3px] border-slate-500 pl-4 py-1.5 bg-[#090E17]/60 backdrop-blur-md rounded-r-sm shadow-md opacity-0">
+            <span className="opacity-70 tracking-widest block mb-1">SENSORS_CALIBRATING</span>
+            <span className="text-[#F8FAFC] font-bold tracking-wider">[ OK ] OPTICAL ARRAY</span>
+          </div>
+          <div ref={hudLine2Ref} className="border-l-[3px] border-slate-500 pl-4 py-1.5 bg-[#090E17]/60 backdrop-blur-md rounded-r-sm shadow-md opacity-0">
+            <span className="opacity-70 tracking-widest block mb-1">NETWORK_HANDSHAKE</span>
+            <span className="text-[#F8FAFC] font-bold tracking-wider">[ ESTABLISHED ] SECURE UPLINK</span>
+          </div>
+        </div>
 
-        <h2 ref={sub2Ref} className="absolute bottom-[20%] text-3xl md:text-5xl font-bold text-white drop-shadow-md tracking-wide font-headings opacity-0">
-          Command the outcome.
-        </h2>
+        {/* New Vision Cards */}
+        <div className="absolute right-6 md:right-20 top-1/2 -translate-y-1/2 flex flex-col gap-6 w-[85%] md:w-[45%] max-w-md text-left pointer-events-none">
+          
+          {/* Card 1 */}
+          <div ref={card1Ref} className="bg-[#1E293B]/80 backdrop-blur-md border border-white/10 p-6 md:p-8 rounded-sm shadow-2xl absolute w-full opacity-0 pointer-events-auto">
+            <span className="text-[10px] font-bold text-[#0EA5E9] uppercase tracking-widest font-mono mb-3 block">
+              // Core Capability
+            </span>
+            <h3 className="text-2xl font-bold text-[#F8FAFC] mb-4 font-headings">
+              Zero-Defect Robotics
+            </h3>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              We engineer machine vision and robotic assembly systems capable of sub-millimeter precision, guaranteeing zero-defect production at maximum throughput.
+            </p>
+          </div>
 
-        <div ref={blastTextRef} className="absolute inset-0 flex flex-col items-center justify-center opacity-0">
-          <h1 className="text-7xl md:text-[140px] font-black text-white drop-shadow-lg tracking-tighter leading-none font-headings">
-            SYSTEM <br /><span className="text-slate-400">ONLINE.</span>
-          </h1>
+          {/* Card 2 */}
+          <div ref={card2Ref} className="bg-[#1E293B]/80 backdrop-blur-md border border-white/10 p-6 md:p-8 rounded-sm shadow-2xl absolute w-full opacity-0 pointer-events-auto">
+            <span className="text-[10px] font-bold text-[#0EA5E9] uppercase tracking-widest font-mono mb-3 block">
+              // Neural Networks
+            </span>
+            <h3 className="text-2xl font-bold text-[#F8FAFC] mb-4 font-headings">
+              AI-Driven Quality Control
+            </h3>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Our proprietary edge-computing nodes process optical data in under 8ms, allowing for dynamic, real-time adjustments without slowing down your line.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div ref={card3Ref} className="bg-[#1E293B]/80 backdrop-blur-md border border-white/10 p-6 md:p-8 rounded-sm shadow-2xl absolute w-full opacity-0 pointer-events-auto">
+            <span className="text-[10px] font-bold text-[#0EA5E9] uppercase tracking-widest font-mono mb-3 block">
+              // Deployment
+            </span>
+            <h3 className="text-2xl font-bold text-[#F8FAFC] mb-4 font-headings">
+              Ready for 24/7 Operations
+            </h3>
+            <p className="text-slate-400 text-sm leading-relaxed">
+              Built for high-stress manufacturing environments. We deploy turn-key solutions worldwide with integrated thermal compensation and auto-calibration.
+            </p>
+          </div>
+
         </div>
 
       </div>

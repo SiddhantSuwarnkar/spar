@@ -157,24 +157,63 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* NEW LIGHT THEME SECTION: Our Process */}
+        <section className="bg-slate-50 py-24 px-6 md:px-20 border-b border-slate-200">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16 reveal-up">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block font-mono">
+                Project Lifecycle
+              </span>
+              <h3 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight font-headings">
+                From Concept to Integration
+              </h3>
+              <p className="text-slate-600 mt-4 max-w-2xl mx-auto">We de-risk every deployment through a rigorous, transparent five-step engineering process.</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4 relative reveal-up">
+              {/* Connecting Line */}
+              <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -z-10 -translate-y-1/2"></div>
+              
+              {[
+                { step: "01", title: "Facility Audit", desc: "On-site spatial and workflow analysis." },
+                { step: "02", title: "Digital Twin", desc: "1:1 virtual simulation of the workcell." },
+                { step: "03", title: "Fabrication", desc: "Custom CNC tooling & assembly." },
+                { step: "04", title: "Clean-Room Test", desc: "100-hour stress testing in our lab." },
+                { step: "05", title: "Integration", desc: "Live deployment & operator training." }
+              ].map((item, idx) => (
+                <div key={idx} className="bg-white border border-slate-200 p-6 shadow-sm flex flex-col items-center text-center rounded-sm relative group hover:border-[#0EA5E9] hover:shadow-md transition-all duration-300">
+                  <div className="w-10 h-10 rounded-full bg-slate-50 border-2 border-slate-200 text-slate-400 font-bold flex items-center justify-center mb-4 group-hover:border-[#0EA5E9] group-hover:text-[#0EA5E9] group-hover:bg-[#0EA5E9]/10 transition-colors font-mono text-sm">
+                    {item.step}
+                  </div>
+                  <h4 className="text-slate-900 font-bold mb-2 font-headings">{item.title}</h4>
+                  <p className="text-slate-500 text-xs">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="bg-[#090E17] py-12 border-b border-white/10 overflow-hidden relative select-none">
           <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#090E17] to-transparent z-10 pointer-events-none" />
           <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#090E17] to-transparent z-10 pointer-events-none" />
           <div className="max-w-7xl mx-auto px-6 mb-4 text-center reveal-up">
-            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-500">// INTEGRATED SYSTEMS DEPLOYED AT INDUSTRY LEADERS</span>
+            <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-500">// TECHNOLOGY PARTNERS & INTEGRATION CAPABILITIES</span>
           </div>
           <div className="flex items-center whitespace-nowrap overflow-hidden py-4 reveal-up">
             <div className="flex gap-16 items-center animate-marquee">
-              <span className="text-lg font-bold tracking-widest text-slate-600 font-headings">AEROTECH SOLUTIONS</span><span className="w-2.5 h-2.5 bg-[#0EA5E9] rounded-sm shrink-0" />
-              <span className="text-lg font-bold tracking-widest text-slate-600 font-headings">GLOBAL MOTORS CO.</span><span className="w-2.5 h-2.5 bg-slate-600 rounded-sm shrink-0" />
-              <span className="text-lg font-bold tracking-widest text-slate-600 font-headings">PRIME LOGISTICS INC.</span><span className="w-2.5 h-2.5 bg-[#0EA5E9] rounded-sm shrink-0" />
-              <span className="text-lg font-bold tracking-widest text-slate-600 font-headings">PHARMA-CONCEPTS</span><span className="w-2.5 h-2.5 bg-slate-600 rounded-sm shrink-0" />
-              <span className="text-lg font-bold tracking-widest text-slate-600 font-headings">INTELLI-GRIP GROUP</span><span className="w-2.5 h-2.5 bg-[#0EA5E9] rounded-sm shrink-0" />
-              <span className="text-lg font-bold tracking-widest text-slate-600 font-headings">AEROTECH SOLUTIONS</span><span className="w-2.5 h-2.5 bg-[#0EA5E9] rounded-sm shrink-0" />
-              <span className="text-lg font-bold tracking-widest text-slate-600 font-headings">GLOBAL MOTORS CO.</span><span className="w-2.5 h-2.5 bg-slate-600 rounded-sm shrink-0" />
-              <span className="text-lg font-bold tracking-widest text-slate-600 font-headings">PRIME LOGISTICS INC.</span><span className="w-2.5 h-2.5 bg-[#0EA5E9] rounded-sm shrink-0" />
-              <span className="text-lg font-bold tracking-widest text-slate-600 font-headings">PHARMA-CONCEPTS</span><span className="w-2.5 h-2.5 bg-slate-600 rounded-sm shrink-0" />
-              <span className="text-lg font-bold tracking-widest text-slate-600 font-headings">INTELLI-GRIP GROUP</span><span className="w-2.5 h-2.5 bg-[#0EA5E9] rounded-sm shrink-0" />
+              {['NVIDIA', 'FANUC', 'SIEMENS', 'ROS', 'ALLEN-BRADLEY', 'OMRON', 'UNIVERSAL ROBOTS'].map((partner, i) => (
+                 <React.Fragment key={i}>
+                   <span className="text-xl font-bold tracking-widest text-slate-600 font-headings hover:text-white transition-colors">{partner}</span>
+                   <span className="w-2.5 h-2.5 bg-[#0EA5E9] rounded-sm shrink-0" />
+                 </React.Fragment>
+              ))}
+              {/* Duplicate for infinite effect */}
+              {['NVIDIA', 'FANUC', 'SIEMENS', 'ROS', 'ALLEN-BRADLEY', 'OMRON', 'UNIVERSAL ROBOTS'].map((partner, i) => (
+                 <React.Fragment key={i + 'dup'}>
+                   <span className="text-xl font-bold tracking-widest text-slate-600 font-headings hover:text-white transition-colors">{partner}</span>
+                   <span className="w-2.5 h-2.5 bg-[#0EA5E9] rounded-sm shrink-0" />
+                 </React.Fragment>
+              ))}
             </div>
           </div>
         </section>

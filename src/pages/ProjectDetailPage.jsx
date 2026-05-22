@@ -148,6 +148,25 @@ export default function ProjectDetailPage() {
                 {project.solution}
               </p>
             </div>
+
+            {/* NEW: ROI & Impact Grid */}
+            <div className="border-t border-white/10 pt-10">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block font-mono">
+                // Measurable Impact
+              </span>
+              <h2 className="text-2xl font-bold text-[#F8FAFC] mb-6 font-headings">
+                ROI & Performance Metrics
+              </h2>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {project.metrics && project.metrics.map((m, i) => (
+                  <div key={i} className="bg-[#1E293B]/50 border border-white/10 p-4 rounded-sm flex flex-col items-center justify-center text-center shadow-md">
+                    <span className="text-2xl lg:text-3xl font-black text-white font-headings mb-1">{m.value}</span>
+                    <span className="text-[10px] font-bold text-[#0EA5E9] uppercase tracking-widest font-mono">{m.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Right Column (30% width) - Sticky specs table */}

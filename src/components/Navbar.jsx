@@ -40,8 +40,8 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-[#090E17]/90 backdrop-blur-md border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.3)] ${
-        isScrolled ? 'py-3' : 'py-5'
+      className={`fixed left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 transition-all duration-300 bg-[#090E17]/75 backdrop-blur-xl border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] rounded-md ${
+        isScrolled ? 'top-2 py-1.5' : 'top-6 py-2.5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-20 flex items-center justify-between">
@@ -55,7 +55,7 @@ export default function Navbar() {
           <img 
             src="/logo.png" 
             alt="SPAR Logo" 
-            className="h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+            className="h-10 md:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
           />
         </a>
 

@@ -21,6 +21,31 @@ export default function ProjectsPage() {
     : projects.filter(p => p.category === activeCategory);
 
   useGSAP(() => {
+    // Parallax Effect
+    gsap.to('.parallax-bg', {
+      yPercent: 30,
+      ease: "none",
+      scrollTrigger: {
+        trigger: '.header-section',
+        start: "top top",
+        end: "bottom top",
+        scrub: true
+      }
+    });
+
+    gsap.utils.toArray('.reveal-up').forEach(elem => {
+      gsap.fromTo(elem, 
+        { y: 60, opacity: 0 }, 
+        {
+          y: 0, 
+          opacity: 1, 
+          duration: 1, 
+          ease: 'power3.out',
+          scrollTrigger: { trigger: elem, start: 'top 85%' }
+        }
+      );
+    });
+
     // Fade in grid items on render/scroll
     const items = gridRef.current.children;
     if (items.length > 0) {
@@ -42,17 +67,28 @@ export default function ProjectsPage() {
   return (
     <div ref={containerRef} className="w-full relative z-40 bg-[#090E17]">
       
-      {/* 1. HERO SECTION: Stark White, Bold Slate Heading */}
-      <section className="bg-[#090E17] pt-36 pb-16 px-6 md:px-20 border-b border-white/10">
-        <div className="max-w-7xl mx-auto">
-          <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#0EA5E9] mb-4 block font-mono">
+      {/* Cinematic Header */}
+      <section className="header-section relative h-[80vh] flex items-center justify-center overflow-hidden">
+        {/* Background Image with Parallax */}
+        <div className="absolute inset-0 w-full h-[130%] -top-[15%]">
+          <img 
+            src="/robotic_welding_cell.png" 
+            alt="Robotic Welding Deployment"
+            className="parallax-bg w-full h-full object-cover opacity-60" 
+          />
+        </div>
+        
+        {/* Vibrant Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A]/90 via-[#0F172A]/60 to-[#090E17] z-10" />
+        
+        <div className="relative z-20 text-center px-4 reveal-up mt-20 max-w-5xl">
+          <span className="text-[#0EA5E9] font-bold tracking-[0.4em] uppercase mb-6 block text-sm shadow-sm font-mono">
             System Deployments
           </span>
-          <h1 className="text-4xl md:text-6xl font-bold text-[#F8FAFC] tracking-tight mb-6 font-headings">
-            Proven Deployments. Measurable ROI.
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black font-headings tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#0EA5E9]">
+            Proven Deployments. <br/> Measurable ROI.
           </h1>
-          <div className="w-16 h-[2px] bg-[#0EA5E9]"></div>
-          <p className="text-slate-400 text-sm md:text-base max-w-xl mt-6 leading-relaxed font-normal">
+          <p className="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-normal">
             Explore our library of custom-built robotic workcells and automated inspection loops currently running on production lines worldwide.
           </p>
         </div>

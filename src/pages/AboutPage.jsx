@@ -98,11 +98,21 @@ export default function AboutPage() {
               </span>
             </h2>
             <p className="text-lg md:text-xl text-slate-400 mb-6 leading-relaxed font-medium">
-              Founded in a tiny Houston prototyping lab, SPAR was built on a singular obsession: achieving absolute physical precision.
+              Based in Pune, India's manufacturing hub, SPAR was built on a singular obsession: achieving absolute physical precision.
             </p>
-            <p className="text-lg text-slate-500 leading-relaxed">
-              Today, we deploy synchronized, high-throughput robotic workcells across the globe, redefining what is possible in industrial manufacturing. We treat hardware as an art form and software as the invisible hand guiding it.
+            <p className="text-lg text-slate-500 leading-relaxed mb-8">
+              Backed by one of Pune's leading industrial manufacturing companies, we have the resources and deep industry expertise to deploy synchronized, high-throughput robotic workcells across the globe. We treat hardware as an art form and software as the invisible hand guiding it.
             </p>
+            <div className="border-l-[3px] border-[#0EA5E9] pl-6">
+              <h3 className="text-xl font-bold text-white font-headings mb-2">Our Mission</h3>
+              <p className="text-sm text-slate-400 leading-relaxed mb-6">
+                To completely eliminate production bottlenecks and guarantee zero-defect manufacturing through intelligent, autonomous systems.
+              </p>
+              <h3 className="text-xl font-bold text-white font-headings mb-2">Quality Guarantee</h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Every robotic cell is aggressively stress-tested under maximum thermal and kinetic loads in our clean-rooms before deployment.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -114,7 +124,7 @@ export default function AboutPage() {
             <video src="/showcase/IMG_7543.mp4" autoPlay loop muted playsInline className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
             <div className="absolute bottom-8 left-8 z-20">
               <span className="text-[#0EA5E9] font-bold text-xs tracking-widest uppercase mb-2 block font-mono">Chapter 01</span>
-              <h3 className="text-3xl font-bold text-[#F8FAFC] font-headings">The Houston Lab</h3>
+              <h3 className="text-3xl font-bold text-[#F8FAFC] font-headings">The Pune Prototyping Lab</h3>
             </div>
           </div>
 
@@ -123,7 +133,7 @@ export default function AboutPage() {
             <video src="/showcase/IMG_7544.mp4" autoPlay loop muted playsInline className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
             <div className="absolute bottom-8 right-8 z-20 text-right">
               <span className="text-[#0EA5E9] font-bold text-xs tracking-widest uppercase mb-2 block font-mono">Chapter 02</span>
-              <h3 className="text-3xl font-bold text-[#F8FAFC] font-headings">Scaling to Pune</h3>
+              <h3 className="text-3xl font-bold text-[#F8FAFC] font-headings">Global Industrial Scale</h3>
             </div>
           </div>
 
@@ -142,8 +152,45 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* NEW LIGHT THEME SECTION: The Facility Tour */}
+      <section className="bg-slate-50 py-32 px-6 md:px-20 border-t border-b border-slate-200 overflow-hidden relative z-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 reveal-up">
+            <div className="max-w-2xl">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block font-mono">
+                Physical Infrastructure
+              </span>
+              <h2 className="text-4xl md:text-6xl font-black font-headings text-slate-900 leading-[1.1]">
+                The Pune Prototyping & <br/> Testing Facility
+              </h2>
+            </div>
+            <p className="text-slate-600 max-w-md font-medium">
+              We don't build in a garage. Our 40,000 sq ft facility houses 5-axis CNC machining, dedicated vision testing clean-rooms, and multi-robot cell staging areas.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 reveal-up">
+            <div className="group relative aspect-[16/9] overflow-hidden bg-slate-200 rounded-sm shadow-md">
+              <video src="/showcase/IMG_7543.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex flex-col justify-end p-8">
+                <span className="text-[#0EA5E9] font-mono text-xs uppercase tracking-widest font-bold mb-1">01. Fabrication</span>
+                <h3 className="text-white text-2xl font-bold font-headings">Custom CNC & Machining</h3>
+              </div>
+            </div>
+            
+            <div className="group relative aspect-[16/9] overflow-hidden bg-slate-200 rounded-sm shadow-md">
+              <video src="/showcase/IMG_7548.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex flex-col justify-end p-8">
+                <span className="text-[#0EA5E9] font-mono text-xs uppercase tracking-widest font-bold mb-1">02. Integration</span>
+                <h3 className="text-white text-2xl font-bold font-headings">Multi-Cell Staging</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Modern Team Section with Hover Effects */}
-      <section className="py-32 px-6 md:px-20 bg-[#090E17] relative overflow-hidden z-20 border-t border-white/10">
+      <section className="py-32 px-6 md:px-20 bg-[#090E17] relative overflow-hidden z-20">
         {/* Ambient Glow */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#0EA5E9]/15 blur-[120px] rounded-full pointer-events-none" />
 
