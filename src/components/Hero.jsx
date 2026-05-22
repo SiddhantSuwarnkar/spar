@@ -38,7 +38,7 @@ export default function Hero() {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
-        end: "+=10000",
+        end: "+=7000",
         pin: true,
         animation: masterTl,
         scrub: 1 // Built-in smooth scrubbing
