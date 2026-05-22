@@ -56,7 +56,7 @@ export default function SolutionsPage() {
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="w-full relative z-40 bg-white">
+    <div ref={containerRef} className="w-full relative z-40 bg-[#090E17]">
       
       {/* 1. HERO SECTION: Solid Dark Background (#0F172A) */}
       <section className="bg-[#0F172A] text-white pt-36 pb-24 px-6 md:px-20 text-center">
@@ -93,7 +93,7 @@ export default function SolutionsPage() {
                     isImageLeft ? 'lg:order-1' : 'lg:order-2'
                   }`}
                 >
-                  <div className="border-2 border-slate-100 p-2 bg-[#F1F5F9] rounded-[2px] shadow-sm relative overflow-hidden aspect-[4/3] flex items-center justify-center">
+                  <div className="border-2 border-white/10 p-2 bg-[#1E293B]/50 rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative overflow-hidden aspect-[4/3] flex items-center justify-center">
                     <video 
                       src={cap.video} 
                       poster={cap.image}
@@ -112,27 +112,27 @@ export default function SolutionsPage() {
                     isImageLeft ? 'lg:order-2' : 'lg:order-1'
                   }`}
                 >
-                  <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block">
+                  <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block font-mono">
                     System Capability 0{cap.id}
                   </span>
                   
-                  <h3 className="text-3xl md:text-4xl font-bold text-[#0F172A] mb-6 font-headings">
+                  <h3 className="text-3xl md:text-4xl font-bold text-[#F8FAFC] mb-6 font-headings">
                     {cap.title}
                   </h3>
                   
-                  <p className="text-slate-700 text-base leading-relaxed mb-8 font-normal">
+                  <p className="text-slate-400 text-base leading-relaxed mb-8 font-normal">
                     {cap.desc}
                   </p>
 
                   {/* Bullet Points / Specs */}
-                  <div className="border-t border-slate-100 pt-6">
-                    <h4 className="text-xs font-bold uppercase tracking-widest text-[#0F172A] mb-4">
+                  <div className="border-t border-white/10 pt-6">
+                    <h4 className="text-xs font-bold uppercase tracking-widest text-[#F8FAFC] mb-4 font-mono">
                       Engineering Specifications:
                     </h4>
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {cap.specs.map((spec, sIdx) => (
-                        <li key={sIdx} className="flex items-center gap-3 text-sm text-slate-700 font-normal">
-                          <span className="w-1.5 h-1.5 bg-[#0EA5E9] rounded-none shrink-0" />
+                        <li key={sIdx} className="flex items-center gap-3 text-sm text-slate-400 font-normal">
+                          <span className="w-1.5 h-1.5 bg-[#0EA5E9] rounded-sm shrink-0" />
                           <span>{spec}</span>
                         </li>
                       ))}

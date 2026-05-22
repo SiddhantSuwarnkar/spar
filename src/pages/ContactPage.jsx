@@ -39,7 +39,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div ref={containerRef} className="w-full relative z-40 bg-white min-h-screen pt-20 flex flex-col">
+    <div ref={containerRef} className="w-full relative z-40 bg-[#090E17] min-h-screen pt-20 flex flex-col">
       
       {/* Split screen content wrapper */}
       <div className="flex-grow grid grid-cols-1 lg:grid-cols-2">
@@ -112,16 +112,16 @@ export default function ContactPage() {
         {/* RIGHT SIDE: The Form (White Bg) */}
         <div 
           ref={rightColRef}
-          className="bg-white p-12 md:p-20 flex flex-col justify-center border-l border-slate-100"
+          className="bg-[#090E17] p-12 md:p-20 flex flex-col justify-center border-l border-white/10"
         >
           <div className="max-w-md w-full mx-auto">
-            <h2 className="text-2xl font-bold text-[#0F172A] mb-8 font-headings">
+            <h2 className="text-2xl font-bold text-[#F8FAFC] mb-8 font-headings">
               Request Project Assessment
             </h2>
 
             {submitted ? (
-              <div className="border border-[#0EA5E9]/30 bg-[#F0F9FF] p-6 text-slate-700 text-sm leading-relaxed rounded-none animate-fadeIn">
-                <span className="font-bold text-[#0EA5E9] block mb-2">SYSTEM_STATUS: Assessment Request Logged</span>
+              <div className="border border-[#0EA5E9]/50 bg-[#1E293B]/50 backdrop-blur-md p-6 text-slate-300 text-sm leading-relaxed rounded-sm shadow-[0_0_20px_rgba(14,165,233,0.1)] animate-fadeIn">
+                <span className="font-bold text-[#0EA5E9] block mb-2 font-mono">SYSTEM_STATUS: Assessment Request Logged</span>
                 Thank you. Your request was successfully transmitted to our engineering team. We will review your automation requirements and contact you within 24 business hours.
               </div>
             ) : (
@@ -129,7 +129,7 @@ export default function ContactPage() {
                 
                 {/* Name */}
                 <div className="flex flex-col">
-                  <label htmlFor="name" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Full Name</label>
+                  <label htmlFor="name" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 font-mono">Full Name</label>
                   <input
                     type="text"
                     id="name"
@@ -137,13 +137,13 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={(e) => setFormData({...formData, name: e.target.value})}
                     placeholder="Enter your name"
-                    className="border border-slate-200 focus:border-[#0EA5E9] focus:outline-none p-3.5 text-sm text-[#0F172A] rounded-none transition-colors duration-200"
+                    className="border border-white/10 focus:border-[#0EA5E9] focus:outline-none p-3.5 text-sm text-[#F8FAFC] bg-[#1E293B]/50 rounded-sm transition-colors duration-200"
                   />
                 </div>
 
                 {/* Company */}
                 <div className="flex flex-col">
-                  <label htmlFor="company" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Company Name</label>
+                  <label htmlFor="company" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 font-mono">Company Name</label>
                   <input
                     type="text"
                     id="company"
@@ -151,13 +151,13 @@ export default function ContactPage() {
                     value={formData.company}
                     onChange={(e) => setFormData({...formData, company: e.target.value})}
                     placeholder="Enter company name"
-                    className="border border-slate-200 focus:border-[#0EA5E9] focus:outline-none p-3.5 text-sm text-[#0F172A] rounded-none transition-colors duration-200"
+                    className="border border-white/10 focus:border-[#0EA5E9] focus:outline-none p-3.5 text-sm text-[#F8FAFC] bg-[#1E293B]/50 rounded-sm transition-colors duration-200"
                   />
                 </div>
 
                 {/* Email */}
                 <div className="flex flex-col">
-                  <label htmlFor="email" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Corporate Email</label>
+                  <label htmlFor="email" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 font-mono">Corporate Email</label>
                   <input
                     type="email"
                     id="email"
@@ -165,18 +165,18 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
                     placeholder="name@company.com"
-                    className="border border-slate-200 focus:border-[#0EA5E9] focus:outline-none p-3.5 text-sm text-[#0F172A] rounded-none transition-colors duration-200"
+                    className="border border-white/10 focus:border-[#0EA5E9] focus:outline-none p-3.5 text-sm text-[#F8FAFC] bg-[#1E293B]/50 rounded-sm transition-colors duration-200"
                   />
                 </div>
 
                 {/* What are you looking to automate? Dropdown */}
                 <div className="flex flex-col">
-                  <label htmlFor="service" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2">Automation Target</label>
+                  <label htmlFor="service" className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 font-mono">Automation Target</label>
                   <select
                     id="service"
                     value={formData.service}
                     onChange={(e) => setFormData({...formData, service: e.target.value})}
-                    className="border border-slate-200 focus:border-[#0EA5E9] focus:outline-none p-3.5 text-sm text-[#0F172A] bg-white rounded-none transition-colors duration-200"
+                    className="border border-white/10 focus:border-[#0EA5E9] focus:outline-none p-3.5 text-sm text-[#F8FAFC] bg-[#1E293B]/50 rounded-sm transition-colors duration-200"
                   >
                     <option value="Machine Vision">Machine Vision (Quality Control / Inspection)</option>
                     <option value="Robotic Assembly">High-Speed Robotic Assembly</option>
@@ -187,7 +187,7 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  className="bg-[#0EA5E9] text-white hover:bg-[#0F172A] py-4 px-6 text-xs font-bold tracking-widest uppercase mt-4 transition-all duration-300 shadow-md shadow-sky-500/10 rounded-none border border-[#0EA5E9] hover:border-[#0F172A]"
+                  className="bg-gradient-to-b from-slate-800 to-slate-900 border border-[#0EA5E9]/50 text-white hover:border-[#0EA5E9] py-4 px-6 text-xs font-bold tracking-widest uppercase mt-4 transition-all duration-300 shadow-md rounded-sm font-mono"
                 >
                   Submit Request &rarr;
                 </button>

@@ -20,7 +20,7 @@ import { NavigationProvider, useNavigation } from './context/NavigationContext';
 gsap.registerPlugin(ScrollTrigger);
 
 function AppContent() {
-  const { path, isTransitioning } = useNavigation();
+  const { path, isTransitioning, isInitialLoad } = useNavigation();
 
   // 1. Initialize Lenis Smooth Scroll (Global)
   useEffect(() => {
@@ -68,7 +68,7 @@ function AppContent() {
 
   return (
     <div id="root" className="bg-white font-sans overflow-x-hidden text-[#0F172A]">
-      <PageTransitionOverlay active={isTransitioning} />
+      <PageTransitionOverlay active={isTransitioning} isInitialLoad={isInitialLoad} />
       <Navbar />
 
       <div className="relative z-30">
@@ -81,7 +81,7 @@ function AppContent() {
 }
 
 // High-tech navigation wipe overlay using GSAP
-function PageTransitionOverlay({ active }) {
+function PageTransitionOverlay({ active, isInitialLoad }) {
   const overlayRef = React.useRef(null);
   const textRef = React.useRef(null);
   const barRef = React.useRef(null);
@@ -89,13 +89,21 @@ function PageTransitionOverlay({ active }) {
   useEffect(() => {
     if (active) {
       gsap.killTweensOf([overlayRef.current, textRef.current, barRef.current]);
-      gsap.set(overlayRef.current, { display: 'flex', opacity: 0, pointerEvents: 'auto' });
+      
+      // If it's initial load, we don't fade in the overlay, it's already there
+      if (isInitialLoad) {
+        gsap.set(overlayRef.current, { display: 'flex', opacity: 1, pointerEvents: 'auto' });
+      } else {
+        gsap.set(overlayRef.current, { display: 'flex', opacity: 0, pointerEvents: 'auto' });
+        gsap.to(overlayRef.current, { opacity: 1, duration: 0.4, ease: 'power3.out' });
+      }
+
       gsap.set(textRef.current, { y: 30, opacity: 0 });
       gsap.set(barRef.current, { width: '0%' });
 
-      gsap.to(overlayRef.current, { opacity: 1, duration: 0.4, ease: 'power3.out' });
       gsap.to(textRef.current, { y: 0, opacity: 1, duration: 0.4, delay: 0.15, ease: 'power2.out' });
-      gsap.to(barRef.current, { width: '100%', duration: 0.6, ease: 'power2.inOut' });
+      // For initial load we give a longer progress bar fill
+      gsap.to(barRef.current, { width: '100%', duration: isInitialLoad ? 1.8 : 0.6, ease: 'power2.inOut' });
     } else {
       gsap.killTweensOf([overlayRef.current, textRef.current, barRef.current]);
       gsap.to(textRef.current, { y: -30, opacity: 0, duration: 0.35, ease: 'power3.in' });
@@ -110,7 +118,7 @@ function PageTransitionOverlay({ active }) {
   }, [active]);
 
   return (
-    <div ref={overlayRef} className="fixed inset-0 z-[9999] bg-[#0F172A] flex flex-col items-center justify-center pointer-events-none select-none text-white" style={{ display: 'none' }}>
+    <div ref={overlayRef} className="fixed inset-0 z-[9999] bg-[#0F172A] flex flex-col items-center justify-center pointer-events-none select-none text-white" style={{ display: isInitialLoad ? 'flex' : 'none', opacity: isInitialLoad ? 1 : 0 }}>
       <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.96),rgba(15,23,42,0.96)),repeating-linear-gradient(0deg,rgba(0,0,0,0.2) 0px,rgba(0,0,0,0.2) 1px,transparent 1px,transparent 3px)] pointer-events-none" style={{ backgroundSize: '100% 100%, 100% 6px' }} />
       <div ref={textRef} className="relative z-10 flex flex-col items-center text-center max-w-sm w-full px-8">
         <div className="mb-6 relative flex items-center justify-center">
@@ -119,12 +127,18 @@ function PageTransitionOverlay({ active }) {
           </div>
           <div className="absolute font-mono text-[9px] text-slate-500 font-bold uppercase tracking-widest">SPAR</div>
         </div>
-        <h4 className="text-[10px] font-mono text-[#0EA5E9] uppercase tracking-[0.3em] mb-2 font-bold">System Node Transition</h4>
-        <h3 className="text-xs font-bold uppercase tracking-[0.2em] font-headings text-slate-300">Routing Sequence Active</h3>
+        <h4 className="text-[10px] font-mono text-[#0EA5E9] uppercase tracking-[0.3em] mb-2 font-bold">
+          {isInitialLoad ? 'SYSTEM BOOT SEQUENCE' : 'System Node Transition'}
+        </h4>
+        <h3 className="text-xs font-bold uppercase tracking-[0.2em] font-headings text-slate-300">
+          {isInitialLoad ? 'INITIALIZING CORE...' : 'Routing Sequence Active'}
+        </h3>
         <div className="w-full h-[1px] bg-slate-800 mt-6 rounded-full overflow-hidden">
           <div ref={barRef} className="h-full bg-[#0EA5E9] w-0" />
         </div>
-        <span className="text-[8px] font-mono text-slate-600 mt-3 uppercase tracking-widest">SYS_ROUTE_CONNECTING // PORT_80_OK</span>
+        <span className="text-[8px] font-mono text-slate-600 mt-3 uppercase tracking-widest">
+          {isInitialLoad ? 'SYS_KERNEL_LOAD // 100%' : 'SYS_ROUTE_CONNECTING // PORT_80_OK'}
+        </span>
       </div>
     </div>
   );

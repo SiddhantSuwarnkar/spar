@@ -5,7 +5,8 @@ const NavigationContext = createContext(null);
 
 export function NavigationProvider({ children }) {
   const [path, setPath] = useState(window.location.pathname);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   const navigate = (to, onPageChange = null) => {
     if (to === path) {
@@ -42,11 +43,22 @@ export function NavigationProvider({ children }) {
       setPath(window.location.pathname);
     };
     window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
+    
+    // Handle initial load sequence
+    const timer = setTimeout(() => {
+      setIsTransitioning(false);
+      // Give the animation time to finish before turning off initial load flag
+      setTimeout(() => setIsInitialLoad(false), 500);
+    }, 2500); // 2.5 seconds boot up
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      clearTimeout(timer);
+    };
   }, []);
 
   return (
-    <NavigationContext.Provider value={{ path, navigate, isTransitioning }}>
+    <NavigationContext.Provider value={{ path, navigate, isTransitioning, isInitialLoad }}>
       {children}
     </NavigationContext.Provider>
   );

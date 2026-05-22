@@ -54,17 +54,17 @@ export default function ProjectDetailPage() {
 
   if (!project) {
     return (
-      <div className="w-full text-center py-36 bg-white min-h-[50vh] text-slate-500 font-mono">
+      <div className="w-full text-center py-36 bg-[#090E17] min-h-[50vh] text-slate-500 font-mono">
         PROJECT_NOT_FOUND // ERROR_404
       </div>
     );
   }
 
   return (
-    <div ref={containerRef} className="w-full relative z-40 bg-white">
+    <div ref={containerRef} className="w-full relative z-40 bg-[#090E17]">
       
       {/* 1. EDGE-TO-EDGE HERO VIDEO */}
-      <div className="relative h-[50vh] md:h-[70vh] w-full bg-slate-900 border-b border-slate-200 overflow-hidden">
+      <div className="relative h-[50vh] md:h-[70vh] w-full bg-slate-900 border-b border-white/10 overflow-hidden">
         {project.video ? (
           <video 
             src={project.video} 
@@ -126,25 +126,25 @@ export default function ProjectDetailPage() {
           {/* Left Column (70% width) */}
           <div ref={leftColRef} className="col-span-12 lg:col-span-8 flex flex-col gap-10">
             <div>
-              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block font-mono">
                 // The Challenge
               </span>
-              <h2 className="text-2xl font-bold text-[#0F172A] mb-4 font-headings">
+              <h2 className="text-2xl font-bold text-[#F8FAFC] mb-4 font-headings">
                 Operational Constraints & Goals
               </h2>
-              <p className="text-slate-700 text-base leading-relaxed font-normal">
+              <p className="text-slate-400 text-base leading-relaxed font-normal">
                 {project.challenge}
               </p>
             </div>
 
-            <div className="border-t border-slate-100 pt-10">
-              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block">
+            <div className="border-t border-white/10 pt-10">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block font-mono">
                 // The Solution
               </span>
-              <h2 className="text-2xl font-bold text-[#0F172A] mb-4 font-headings">
+              <h2 className="text-2xl font-bold text-[#F8FAFC] mb-4 font-headings">
                 Custom Integrated Architecture
               </h2>
-              <p className="text-slate-700 text-base leading-relaxed font-normal">
+              <p className="text-slate-400 text-base leading-relaxed font-normal">
                 {project.solution}
               </p>
             </div>
@@ -153,25 +153,25 @@ export default function ProjectDetailPage() {
           {/* Right Column (30% width) - Sticky specs table */}
           <div 
             ref={rightColRef}
-            className="col-span-12 lg:col-span-4 bg-[#F1F5F9] border border-slate-200 p-8 flex flex-col justify-start lg:sticky lg:top-28"
+            className="col-span-12 lg:col-span-4 bg-[#1E293B]/50 backdrop-blur-md border border-white/10 p-8 flex flex-col justify-start lg:sticky lg:top-28 rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
           >
-            <span className="text-[10px] font-mono text-slate-400 block mb-2">// SPEC_TABLE_V.1.0</span>
-            <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#0F172A] border-b border-slate-300 pb-4 mb-6 font-headings">
+            <span className="text-[10px] font-mono text-slate-500 block mb-2">// SPEC_TABLE_V.1.0</span>
+            <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#F8FAFC] border-b border-white/10 pb-4 mb-6 font-headings">
               System Specifications
             </h3>
             
             <div className="flex flex-col gap-4">
               {Object.entries(project.specs).map(([key, val]) => (
-                <div key={key} className="flex justify-between border-b border-slate-200/60 pb-3 text-xs">
-                  <span className="text-slate-500 font-bold uppercase tracking-wider">{key}</span>
-                  <span className="text-[#0F172A] font-bold text-right">{val}</span>
+                <div key={key} className="flex justify-between border-b border-white/5 pb-3 text-xs">
+                  <span className="text-slate-400 font-bold uppercase tracking-wider font-mono">{key}</span>
+                  <span className="text-[#F8FAFC] font-bold text-right font-mono">{val}</span>
                 </div>
               ))}
             </div>
 
             <button 
               onClick={() => navigate('/contact')}
-              className="bg-[#0F172A] text-white hover:bg-[#0EA5E9] text-center py-4 text-xs font-bold tracking-widest uppercase mt-8 transition-colors duration-200 rounded-none shadow-md"
+              className="bg-gradient-to-b from-slate-800 to-slate-900 border border-[#0EA5E9]/50 text-white hover:border-[#0EA5E9] text-center py-4 text-xs font-bold tracking-widest uppercase mt-8 transition-all duration-300 rounded-sm shadow-md font-mono"
             >
               Request Custom Integration
             </button>
@@ -180,21 +180,21 @@ export default function ProjectDetailPage() {
         </div>
 
         {/* 3. MORE IMAGES GALLERY */}
-        <div ref={galleryRef} className="border-t border-slate-100 mt-20 pt-16">
-          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block">
+        <div ref={galleryRef} className="border-t border-white/10 mt-20 pt-16">
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block font-mono">
             System Angles
           </span>
-          <h2 className="text-2xl font-bold text-[#0F172A] mb-8 font-headings">
+          <h2 className="text-2xl font-bold text-[#F8FAFC] mb-8 font-headings">
             Close-Ups & Tooling Diagnostic Views
           </h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {project.angles.map((angleImg, idx) => (
-              <div key={idx} className="border border-slate-200 p-2 bg-[#F1F5F9] rounded-none">
+              <div key={idx} className="border border-white/10 p-2 bg-[#1E293B]/50 rounded-sm">
                 <img 
                   src={angleImg} 
                   alt={`Tooling view ${idx + 1}`} 
-                  className="w-full aspect-[16/10] object-cover rounded-none transition-all duration-700"
+                  className="w-full aspect-[16/10] object-cover rounded-[2px] transition-all duration-700"
                 />
                 <div className="flex justify-between items-center mt-3 text-[10px] font-mono text-slate-500">
                   <span>CAMERA_ANGLE_0{idx + 1}.png</span>

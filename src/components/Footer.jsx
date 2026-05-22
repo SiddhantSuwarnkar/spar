@@ -17,20 +17,24 @@ export default function Footer() {
   };
 
   return (
-    <footer id="contact" className="bg-[#0F172A] text-white border-t border-slate-800 relative z-40">
+    <footer id="contact" className="bg-[#090E17] text-[#F8FAFC] border-t border-white/10 relative z-40">
       <div className="max-w-7xl mx-auto px-6 md:px-20 py-16 md:py-24">
         
         {/* Main 4-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-slate-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 pb-16 border-b border-white/10">
           
           {/* Column 1: Company Logo & Details (col-span-4) */}
           <div className="lg:col-span-4 flex flex-col gap-6">
             <a
               href="/"
               onClick={(e) => handleLinkClick(e, '/')}
-              className="flex items-center select-none cursor-pointer w-fit"
+              className="flex items-center select-none cursor-pointer w-fit group"
             >
-              <img src="/logo.png" alt="SPAR Logo" className="h-10 w-auto object-contain" />
+              <img 
+                src="/logo.png" 
+                alt="SPAR Logo" 
+                className="h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
+              />
             </a>
             
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm font-light">

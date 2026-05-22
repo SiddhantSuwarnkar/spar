@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-[#0F172A] border-b border-slate-800 shadow-[0_4px_20px_rgba(0,0,0,0.3)] ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-[#090E17]/90 backdrop-blur-md border-b border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.3)] ${
         isScrolled ? 'py-3' : 'py-5'
       }`}
     >
@@ -50,12 +50,12 @@ export default function Navbar() {
         <a
           href="/"
           onClick={(e) => handleLinkClick(e, '/')}
-          className="flex items-center select-none cursor-pointer"
+          className="flex items-center select-none cursor-pointer group"
         >
           <img 
             src="/logo.png" 
             alt="SPAR Logo" 
-            className="h-9 md:h-11 w-auto object-contain transition-all duration-300" 
+            className="h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
           />
         </a>
 
@@ -104,7 +104,7 @@ export default function Navbar() {
           <a
             href="/contact"
             onClick={(e) => handleLinkClick(e, '/contact')}
-            className="bg-[#0EA5E9] text-white border border-[#0EA5E9] px-6 py-2.5 rounded-[2px] text-xs font-bold tracking-widest uppercase hover:bg-white hover:text-[#0F172A] hover:border-white transition-all duration-300 shadow-md shadow-sky-500/10"
+            className="bg-gradient-to-b from-slate-800 to-slate-900 border border-[#0EA5E9]/50 text-white hover:border-[#0EA5E9] px-6 py-2.5 rounded-sm text-xs font-bold tracking-widest uppercase transition-all duration-300 shadow-md font-mono"
           >
             Request Consultation
           </a>
