@@ -29,16 +29,16 @@ export default function AboutPage() {
   useGSAP(() => {
     // Global reveal animations for text and cards
     gsap.utils.toArray('.reveal-up').forEach(elem => {
-      gsap.fromTo(elem, 
-        { y: 60, opacity: 0 }, 
+      gsap.fromTo(elem,
+        { y: 60, opacity: 0 },
         {
-          y: 0, 
-          opacity: 1, 
-          duration: 1, 
+          y: 0,
+          opacity: 1,
+          duration: 1,
           ease: 'power3.out',
-          scrollTrigger: { 
-            trigger: elem, 
-            start: 'top 85%' 
+          scrollTrigger: {
+            trigger: elem,
+            start: 'top 85%'
           }
         }
       );
@@ -60,39 +60,39 @@ export default function AboutPage() {
 
   return (
     <div ref={containerRef} className="w-full bg-[#090E17] text-[#F8FAFC] overflow-hidden">
-      
+
       {/* Cinematic Header */}
       <section className="header-section relative h-[80vh] flex items-center justify-center overflow-hidden">
         {/* Background Image with Parallax */}
         <div className="absolute inset-0 w-full h-[130%] -top-[15%]">
-          <img 
-            src="/industrial_facility.png" 
+          <img
+            src="/industrial_facility.png"
             alt="SPAR Workshop"
-            className="parallax-bg w-full h-full object-cover opacity-60" 
+            className="parallax-bg w-full h-full object-cover opacity-60"
           />
         </div>
-        
+
         {/* Vibrant Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0F172A]/90 via-[#0F172A]/60 to-[#0F172A] z-10" />
-        
+
         <div className="relative z-20 text-center px-4 reveal-up mt-20">
           <span className="text-[#0EA5E9] font-bold tracking-[0.4em] uppercase mb-6 block text-sm shadow-sm">
             Our Origin Story
           </span>
           <h1 className="text-6xl md:text-8xl lg:text-[120px] font-black font-headings tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#0EA5E9]">
-            Beyond <br/> Boundaries.
+            Beyond <br /> Boundaries.
           </h1>
         </div>
       </section>
 
       {/* Storytelling Sticky Section */}
       <section className="relative w-full flex flex-col md:flex-row bg-[#090E17] text-slate-300 z-30">
-        
+
         {/* Left: Sticky Text Container */}
-        <div className="md:w-5/12 md:sticky top-0 h-auto md:h-screen flex flex-col justify-center p-10 md:p-20 bg-[#1E293B]/50 backdrop-blur-md border-r border-white/10 shadow-[10px_0_30px_rgba(0,0,0,0.5)] z-10">
+        <div className="md:w-5/12 md:sticky top-0 h-auto md:min-h-screen flex flex-col justify-center p-10 md:p-20 bg-[#1E293B]/50 backdrop-blur-md border-r border-white/10 shadow-[10px_0_30px_rgba(0,0,0,0.5)] z-10">
           <div className="max-w-md reveal-up">
             <h2 className="text-4xl md:text-6xl font-black font-headings mb-8 text-[#F8FAFC] leading-[1.1]">
-              We don't just build robots. <br/>
+              We don't just build robots. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0EA5E9] to-indigo-500">
                 We engineer evolution.
               </span>
@@ -100,25 +100,15 @@ export default function AboutPage() {
             <p className="text-lg md:text-xl text-slate-400 mb-6 leading-relaxed font-medium">
               Based in Pune, India's manufacturing hub, SPAR was built on a singular obsession: achieving absolute physical precision.
             </p>
-            <p className="text-lg text-slate-500 leading-relaxed mb-8">
+            <p className="text-lg text-slate-500 leading-relaxed">
               Backed by one of Pune's leading industrial manufacturing companies, we have the resources and deep industry expertise to deploy synchronized, high-throughput robotic workcells across the globe. We treat hardware as an art form and software as the invisible hand guiding it.
             </p>
-            <div className="border-l-[3px] border-[#0EA5E9] pl-6">
-              <h3 className="text-xl font-bold text-white font-headings mb-2">Our Mission</h3>
-              <p className="text-sm text-slate-400 leading-relaxed mb-6">
-                To completely eliminate production bottlenecks and guarantee zero-defect manufacturing through intelligent, autonomous systems.
-              </p>
-              <h3 className="text-xl font-bold text-white font-headings mb-2">Quality Guarantee</h3>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                Every robotic cell is aggressively stress-tested under maximum thermal and kinetic loads in our clean-rooms before deployment.
-              </p>
-            </div>
           </div>
         </div>
 
         {/* Right: Scrolling Visuals */}
         <div className="md:w-7/12 flex flex-col p-6 md:p-20 gap-24 lg:gap-32 bg-[#090E17]">
-          
+
           <div className="reveal-up group relative overflow-hidden rounded-sm border border-white/10 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:border-[#0EA5E9]/50 transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-t from-[#090E17]/90 to-transparent opacity-80 z-10" />
             <video src="/showcase/IMG_7543.mp4" autoPlay loop muted playsInline className="w-full aspect-[4/3] object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" />
@@ -152,6 +142,36 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Mission & Quality Guarantee Section */}
+      <section className="py-24 px-6 md:px-20 bg-[#090E17] relative overflow-hidden z-20 border-t border-white/5">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0EA5E9]/5 to-transparent pointer-events-none" />
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
+          
+          {/* Mission Card */}
+          <div className="reveal-up bg-[#1E293B]/40 backdrop-blur-sm p-10 md:p-12 rounded-sm border border-white/10 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:border-[#0EA5E9]/50 transition-colors duration-500">
+            <div className="w-12 h-12 bg-[#0EA5E9]/10 rounded-sm flex items-center justify-center mb-8 border border-[#0EA5E9]/20">
+              <span className="text-[#0EA5E9] font-mono font-bold">01</span>
+            </div>
+            <h3 className="text-3xl font-black text-white font-headings mb-6">Our Mission</h3>
+            <p className="text-lg text-slate-400 leading-relaxed">
+              To completely eliminate production bottlenecks and guarantee zero-defect manufacturing through intelligent, autonomous systems.
+            </p>
+          </div>
+          
+          {/* Quality Card */}
+          <div className="reveal-up bg-[#1E293B]/40 backdrop-blur-sm p-10 md:p-12 rounded-sm border border-white/10 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:border-[#0EA5E9]/50 transition-colors duration-500">
+            <div className="w-12 h-12 bg-[#0EA5E9]/10 rounded-sm flex items-center justify-center mb-8 border border-[#0EA5E9]/20">
+              <span className="text-[#0EA5E9] font-mono font-bold">02</span>
+            </div>
+            <h3 className="text-3xl font-black text-white font-headings mb-6">Quality Guarantee</h3>
+            <p className="text-lg text-slate-400 leading-relaxed">
+              Every robotic cell is aggressively stress-tested under maximum thermal and kinetic loads in our clean-rooms before deployment.
+            </p>
+          </div>
+          
+        </div>
+      </section>
+
       {/* NEW LIGHT THEME SECTION: The Facility Tour */}
       <section className="bg-slate-50 py-32 px-6 md:px-20 border-t border-b border-slate-200 overflow-hidden relative z-20">
         <div className="max-w-7xl mx-auto">
@@ -161,14 +181,14 @@ export default function AboutPage() {
                 Physical Infrastructure
               </span>
               <h2 className="text-4xl md:text-6xl font-black font-headings text-slate-900 leading-[1.1]">
-                The Pune Prototyping & <br/> Testing Facility
+                The Pune Prototyping & <br /> Testing Facility
               </h2>
             </div>
             <p className="text-slate-600 max-w-md font-medium">
               We don't build in a garage. Our 40,000 sq ft facility houses 5-axis CNC machining, dedicated vision testing clean-rooms, and multi-robot cell staging areas.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 reveal-up">
             <div className="group relative aspect-[16/9] overflow-hidden bg-slate-200 rounded-sm shadow-md">
               <video src="/showcase/IMG_7543.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90" />
@@ -177,7 +197,7 @@ export default function AboutPage() {
                 <h3 className="text-white text-2xl font-bold font-headings">Custom CNC & Machining</h3>
               </div>
             </div>
-            
+
             <div className="group relative aspect-[16/9] overflow-hidden bg-slate-200 rounded-sm shadow-md">
               <video src="/showcase/IMG_7548.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90" />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent flex flex-col justify-end p-8">
@@ -202,20 +222,20 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {leadership.map((member, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="reveal-up group relative bg-[#1E293B]/50 backdrop-blur-md p-10 rounded-sm border border-white/10 hover:border-[#0EA5E9]/80 transition-all duration-500 hover:-translate-y-4 hover:shadow-[0_20px_40px_-15px_rgba(14,165,233,0.2)]"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-[#0EA5E9]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-sm" />
-                
+
                 <div className="relative z-10">
                   <div className="w-20 h-20 rounded-sm bg-[#090E17] text-[#0EA5E9] font-black text-3xl flex items-center justify-center mb-8 group-hover:bg-[#0EA5E9] group-hover:text-[#090E17] transition-all duration-500 shadow-xl border border-white/10 group-hover:border-transparent font-headings">
                     {member.name.split(' ').map(n => n[0]).join('')}
                   </div>
-                  
+
                   <h3 className="text-2xl font-bold text-[#F8FAFC] mb-2 font-headings group-hover:text-[#0EA5E9] transition-colors">{member.name}</h3>
                   <h4 className="text-[#0EA5E9] text-xs font-bold uppercase tracking-widest mb-6 font-mono">{member.role}</h4>
-                  
+
                   <p className="text-slate-400 leading-relaxed font-light">{member.bio}</p>
                 </div>
               </div>
