@@ -9,15 +9,18 @@ export default function Hero() {
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
   
+  const [isMobile, setIsMobile] = useState(() => 
+    typeof window !== 'undefined' && window.innerWidth < 768
+  );
   const [videoSrc, setVideoSrc] = useState(() => 
-    typeof window !== 'undefined' && window.innerWidth < 768 
-      ? "/mobile_scrub.mp4" 
-      : "/optimized_scrub.mp4"
+    isMobile ? "/mobile_scrub.mp4" : "/optimized_scrub.mp4"
   );
 
   useEffect(() => {
     const handleResize = () => {
-      setVideoSrc(window.innerWidth < 768 ? "/mobile_scrub.mp4" : "/optimized_scrub.mp4");
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setVideoSrc(mobile ? "/mobile_scrub.mp4" : "/optimized_scrub.mp4");
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -46,7 +49,11 @@ export default function Hero() {
       const masterTl = gsap.timeline({ paused: true });
 
       const dur = video.duration && !isNaN(video.duration) ? video.duration : 10;
-      masterTl.to(video, { currentTime: dur, ease: "none", duration: 10 }, 0);
+      
+      // Only scrub video on desktop. On mobile, it auto-plays.
+      if (!isMobile) {
+        masterTl.to(video, { currentTime: dur, ease: "none", duration: 10 }, 0);
+      }
 
       masterTl
         .addLabel("trans1", 1)
@@ -68,7 +75,7 @@ export default function Hero() {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
-        end: "+=10000",
+        end: isMobile ? "+=3000" : "+=10000",
         pin: true,
         animation: masterTl,
         scrub: 1, // Built-in smooth scrubbing
@@ -91,7 +98,7 @@ export default function Hero() {
       video.addEventListener('loadedmetadata', initAnimation, { once: true });
       return () => video.removeEventListener('loadedmetadata', initAnimation);
     }
-  }, { dependencies: [videoSrc] });
+  }, { dependencies: [videoSrc, isMobile] });
 
   return (
     <section ref={sectionRef} className="w-full h-screen relative bg-[#0F172A] overflow-hidden">
@@ -103,6 +110,8 @@ export default function Hero() {
         playsInline
         muted
         preload="auto"
+        autoPlay={isMobile}
+        loop={isMobile}
         className="absolute inset-0 w-full h-full object-cover opacity-90"
       />
       <NoiseOverlay />
