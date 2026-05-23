@@ -56,9 +56,9 @@ const SpecBoard = ({ details }) => {
         Engineering Specifications:
       </h4>
       {details.map((d, i) => (
-        <div key={i} className="flex justify-between items-center border-b border-white/5 pb-2">
+        <div key={i} className="flex flex-col sm:flex-row sm:justify-between sm:items-center border-b border-white/5 pb-2 gap-1.5 sm:gap-4">
           <span className="text-xs font-mono text-slate-500 uppercase tracking-widest">{d.label}</span>
-          <span className="text-sm font-bold text-[#0EA5E9] font-headings">{d.value}</span>
+          <span className="text-sm font-bold text-[#0EA5E9] font-headings text-left sm:text-right break-words">{d.value}</span>
         </div>
       ))}
     </div>
@@ -301,19 +301,19 @@ export default function SolutionsPage() {
               ))}
             </ul>
           </div>
-          <div className="bg-white p-8 border border-slate-200 shadow-xl rounded-sm reveal-up">
+          <div className="bg-white p-6 sm:p-8 border border-slate-200 shadow-xl rounded-sm reveal-up">
              <h3 className="text-xl font-bold font-headings text-slate-900 mb-6">Live Diagnostic Dashboard</h3>
              <div className="space-y-4">
                {/* Mock bars */}
                <div>
-                 <div className="flex justify-between text-xs font-mono font-bold text-slate-500 mb-1">
-                   <span>CELL 01: WELDER</span><span className="text-[#0EA5E9]">ONLINE</span>
+                 <div className="flex flex-col sm:flex-row sm:justify-between text-xs font-mono font-bold text-slate-500 mb-1 gap-1">
+                   <span>CELL 01: WELDER</span><span className="text-[#0EA5E9] sm:text-right">ONLINE</span>
                  </div>
                  <div className="w-full h-2 bg-slate-100 rounded-sm"><div className="w-full h-full bg-[#0EA5E9] rounded-sm"></div></div>
                </div>
                <div>
-                 <div className="flex justify-between text-xs font-mono font-bold text-slate-500 mb-1">
-                   <span>CELL 02: ASSEMBLY</span><span className="text-amber-500">MAINTENANCE DUE IN 40HR</span>
+                 <div className="flex flex-col sm:flex-row sm:justify-between text-xs font-mono font-bold text-slate-500 mb-1 gap-1">
+                   <span>CELL 02: ASSEMBLY</span><span className="text-amber-500 sm:text-right">MAINTENANCE DUE IN 40HR</span>
                  </div>
                  <div className="w-full h-2 bg-slate-100 rounded-sm"><div className="w-[85%] h-full bg-amber-500 rounded-sm"></div></div>
                </div>

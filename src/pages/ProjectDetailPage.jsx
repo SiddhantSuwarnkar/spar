@@ -98,7 +98,7 @@ export default function ProjectDetailPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/80 via-transparent to-transparent pointer-events-none" />
         
         {/* Breadcrumb & Title */}
-        <div className="absolute bottom-12 left-6 md:left-20 text-white max-w-4xl">
+        <div className="absolute bottom-12 left-6 right-6 md:left-20 md:right-20 text-white max-w-4xl">
           <div className="flex items-center gap-2 mb-3">
             <a 
               href="/projects" 
@@ -172,7 +172,7 @@ export default function ProjectDetailPage() {
           {/* Right Column (30% width) - Sticky specs table */}
           <div 
             ref={rightColRef}
-            className="col-span-12 lg:col-span-4 bg-[#1E293B]/50 backdrop-blur-md border border-white/10 p-8 flex flex-col justify-start lg:sticky lg:top-28 rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
+            className="col-span-12 lg:col-span-4 bg-[#1E293B]/50 backdrop-blur-md border border-white/10 p-6 sm:p-8 flex flex-col justify-start lg:sticky lg:top-28 rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
           >
             <span className="text-[10px] font-mono text-slate-500 block mb-2">// SPEC_TABLE_V.1.0</span>
             <h3 className="text-xs font-bold uppercase tracking-[0.25em] text-[#F8FAFC] border-b border-white/10 pb-4 mb-6 font-headings">
@@ -181,9 +181,9 @@ export default function ProjectDetailPage() {
             
             <div className="flex flex-col gap-4">
               {Object.entries(project.specs).map(([key, val]) => (
-                <div key={key} className="flex justify-between border-b border-white/5 pb-3 text-xs">
+                <div key={key} className="flex flex-col sm:flex-row sm:justify-between border-b border-white/5 pb-3 text-xs gap-1">
                   <span className="text-slate-400 font-bold uppercase tracking-wider font-mono">{key}</span>
-                  <span className="text-[#F8FAFC] font-bold text-right font-mono">{val}</span>
+                  <span className="text-[#F8FAFC] font-bold text-left sm:text-right font-mono break-all sm:break-normal">{val}</span>
                 </div>
               ))}
             </div>
