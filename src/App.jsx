@@ -25,6 +25,7 @@ function AppContent() {
   // 1. Initialize Lenis Smooth Scroll (Global)
   useEffect(() => {
     const lenis = new Lenis({ duration: 2.0, smooth: true });
+    window.lenis = lenis;
 
     lenis.on('scroll', ScrollTrigger.update);
     const rafHandler = (time) => lenis.raf(time * 1000);
@@ -35,6 +36,7 @@ function AppContent() {
     return () => {
       lenis.destroy();
       gsap.ticker.remove(rafHandler);
+      delete window.lenis;
     };
   }, []);
 
@@ -42,14 +44,21 @@ function AppContent() {
   useEffect(() => {
     if (isTransitioning) {
       document.body.style.overflow = 'hidden';
+      if (window.lenis) window.lenis.stop();
     } else {
       document.body.style.overflow = '';
+      if (window.lenis) window.lenis.start();
     }
   }, [isTransitioning]);
 
   // Reset scroll to top on page transition
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (window.lenis) {
+      window.lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+    
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);

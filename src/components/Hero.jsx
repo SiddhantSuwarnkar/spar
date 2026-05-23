@@ -134,7 +134,7 @@ export default function Hero() {
         </div>
 
         {/* Left Side Telemetry HUD */}
-        <div ref={hudRef} className="absolute left-6 md:left-20 top-[40%] flex flex-col gap-4 font-mono text-[10px] md:text-xs text-[#0EA5E9] pointer-events-none opacity-0 text-left">
+        <div ref={hudRef} className="hidden md:flex absolute left-6 md:left-20 top-[40%] flex-col gap-4 font-mono text-[10px] md:text-xs text-[#0EA5E9] pointer-events-none opacity-0 text-left">
           <div className="border-l-[3px] border-[#0EA5E9] pl-4 py-1.5 bg-[#090E17]/60 backdrop-blur-md rounded-r-sm shadow-md">
             <span className="opacity-70 tracking-widest block mb-1">SYS_DIAGNOSTIC_RUN</span>
             <span className="text-[#F8FAFC] font-bold tracking-wider">[ OK ] KINEMATICS ENGINE</span>
@@ -150,7 +150,7 @@ export default function Hero() {
         </div>
 
         {/* New Vision Cards */}
-        <div className="absolute right-6 md:right-20 top-1/2 -translate-y-1/2 flex flex-col gap-6 w-[85%] md:w-[45%] max-w-md text-left pointer-events-none">
+        <div className="hidden md:flex absolute right-6 md:right-20 top-1/2 -translate-y-1/2 flex-col gap-6 w-[85%] md:w-[45%] max-w-md text-left pointer-events-none">
           
           {/* Card 1 */}
           <div ref={card1Ref} className="bg-[#1E293B]/80 backdrop-blur-md border border-white/10 p-6 md:p-8 rounded-sm shadow-2xl absolute w-full opacity-0 pointer-events-auto">

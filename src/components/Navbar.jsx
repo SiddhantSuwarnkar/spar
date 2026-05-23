@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '../context/NavigationContext';
+import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const { path, navigate } = useNavigation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -99,17 +101,92 @@ export default function Navbar() {
           </a>
         </div>
 
-        {/* Right: Primary Call to Action */}
-        <div className="flex items-center">
+        {/* Right: Primary Call to Action & Mobile Toggle */}
+        <div className="flex items-center gap-4">
           <a
             href="/contact"
-            onClick={(e) => handleLinkClick(e, '/contact')}
-            className="bg-gradient-to-b from-slate-800 to-slate-900 border border-[#0EA5E9]/50 text-white hover:border-[#0EA5E9] px-6 py-2.5 rounded-sm text-xs font-bold tracking-widest uppercase transition-all duration-300 shadow-md font-mono"
+            onClick={(e) => {
+              handleLinkClick(e, '/contact');
+              setIsMobileMenuOpen(false);
+            }}
+            className="hidden md:block bg-gradient-to-b from-slate-800 to-slate-900 border border-[#0EA5E9]/50 text-white hover:border-[#0EA5E9] px-6 py-2.5 rounded-sm text-xs font-bold tracking-widest uppercase transition-all duration-300 shadow-md font-mono"
           >
             Request Consultation
           </a>
+          <button 
+            className="md:hidden text-slate-300 hover:text-white transition-colors"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
 
+      </div>
+
+      {/* Mobile Menu Dropdown */}
+      <div 
+        className={`md:hidden absolute top-full left-0 w-full bg-[#090E17]/95 backdrop-blur-xl border-t border-white/10 shadow-2xl overflow-hidden transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen ? 'max-h-[400px] py-6' : 'max-h-0 py-0 border-transparent'
+        } flex flex-col items-center gap-6 rounded-b-md`}
+      >
+        <a
+          href="/"
+          onClick={(e) => {
+            handleLinkClick(e, '/');
+            setIsMobileMenuOpen(false);
+          }}
+          className={`text-sm font-semibold tracking-wider font-headings transition-colors duration-200 hover:text-white ${
+            isHome ? 'text-[#0EA5E9]' : 'text-slate-300'
+          }`}
+        >
+          Home
+        </a>
+        <a
+          href="/about"
+          onClick={(e) => {
+            handleLinkClick(e, '/about');
+            setIsMobileMenuOpen(false);
+          }}
+          className={`text-sm font-semibold tracking-wider font-headings transition-colors duration-200 hover:text-white ${
+            isAbout ? 'text-[#0EA5E9]' : 'text-slate-300'
+          }`}
+        >
+          About Us
+        </a>
+        <a
+          href="/solutions"
+          onClick={(e) => {
+            handleLinkClick(e, '/solutions');
+            setIsMobileMenuOpen(false);
+          }}
+          className={`text-sm font-semibold tracking-wider font-headings transition-colors duration-200 hover:text-white ${
+            isSolutions ? 'text-[#0EA5E9]' : 'text-slate-300'
+          }`}
+        >
+          Solutions
+        </a>
+        <a
+          href="/projects"
+          onClick={(e) => {
+            handleLinkClick(e, '/projects');
+            setIsMobileMenuOpen(false);
+          }}
+          className={`text-sm font-semibold tracking-wider font-headings transition-colors duration-200 hover:text-white ${
+            isProjects ? 'text-[#0EA5E9]' : 'text-slate-300'
+          }`}
+        >
+          Case Studies
+        </a>
+        <a
+          href="/contact"
+          onClick={(e) => {
+            handleLinkClick(e, '/contact');
+            setIsMobileMenuOpen(false);
+          }}
+          className="mt-2 bg-gradient-to-b from-slate-800 to-slate-900 border border-[#0EA5E9]/50 text-white px-8 py-3 rounded-sm text-xs font-bold tracking-widest uppercase transition-all duration-300 font-mono w-[80%] max-w-xs text-center"
+        >
+          Request Consultation
+        </a>
       </div>
     </nav>
   );
