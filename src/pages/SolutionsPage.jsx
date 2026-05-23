@@ -180,7 +180,7 @@ export default function SolutionsPage() {
       </section>
       
       {/* 2. ALTERNATING CONTENT ROWS */}
-      <section className="py-24 px-6 md:px-20">
+      <section className="bg-[#090E17] py-24 px-6 md:px-20">
         <div className="max-w-7xl mx-auto flex flex-col gap-32">
           
           {products.map((prod, index) => {

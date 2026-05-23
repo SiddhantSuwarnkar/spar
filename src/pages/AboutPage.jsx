@@ -143,7 +143,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Quality Guarantee Section */}
-      <section className="py-24 px-6 md:px-20 bg-[#090E17] relative overflow-hidden z-20 border-t border-white/5">
+      <section className="py-24 px-6 md:px-20 bg-[#0F172A] relative overflow-hidden z-20 border-t border-white/5">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0EA5E9]/5 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
           

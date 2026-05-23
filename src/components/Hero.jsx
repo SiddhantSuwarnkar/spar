@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -9,11 +9,19 @@ export default function Hero() {
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
   
-  const [videoSrc] = useState(() => 
+  const [videoSrc, setVideoSrc] = useState(() => 
     typeof window !== 'undefined' && window.innerWidth < 768 
       ? "/mobile_scrub.mp4" 
       : "/optimized_scrub.mp4"
   );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setVideoSrc(window.innerWidth < 768 ? "/mobile_scrub.mp4" : "/optimized_scrub.mp4");
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const heroBoxRef = useRef(null);
   // Vision Cards Refs
@@ -30,7 +38,7 @@ export default function Hero() {
   const hudLine1Ref = useRef(null);
   const hudLine2Ref = useRef(null);
 
-  const { contextSafe } = useGSAP(() => {
+  useGSAP((context, contextSafe) => {
     const video = videoRef.current;
     if (!video) return;
 
@@ -83,12 +91,13 @@ export default function Hero() {
       video.addEventListener('loadedmetadata', initAnimation, { once: true });
       return () => video.removeEventListener('loadedmetadata', initAnimation);
     }
-  }, { dependencies: [] });
+  }, { dependencies: [videoSrc] });
 
   return (
     <section ref={sectionRef} className="w-full h-screen relative bg-[#0F172A] overflow-hidden">
       
       <video
+        key={videoSrc}
         ref={videoRef}
         src={videoSrc}
         playsInline

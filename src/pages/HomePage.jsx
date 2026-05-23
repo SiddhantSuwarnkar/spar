@@ -63,7 +63,7 @@ export default function HomePage() {
       {/* 3. WRAP THE REST OF THE PAGE IN Z-40 */}
       <div ref={containerRef} className="w-full relative z-40 bg-[#090E17]">
 
-        <section className="bg-[#0F172A] py-24 md:py-32 px-6 md:px-20 border-b border-white/10 flex items-center justify-center">
+        <section className="bg-[#090E17] py-24 md:py-32 px-6 md:px-20 border-b border-white/10 flex items-center justify-center">
           <div ref={pitchRef} className="max-w-4xl text-center">
             <span className="text-xs font-bold uppercase tracking-[0.3em] text-[#0EA5E9] mb-4 block font-mono">
               System Architecture & Kinematics
@@ -78,7 +78,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section ref={teaserSectionRef} className="bg-[#090E17] py-24 px-6 md:px-20 border-b border-white/10">
+        <section ref={teaserSectionRef} className="bg-[#0F172A] py-24 px-6 md:px-20 border-b border-white/10">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16 reveal-up">
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#0EA5E9] mb-3 block font-mono">
@@ -120,7 +120,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section ref={featuredRef} className="bg-[#0F172A] py-24 px-6 md:px-20 border-b border-white/10">
+        <section ref={featuredRef} className="bg-[#090E17] py-24 px-6 md:px-20 border-b border-white/10">
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 reveal-up">
               <div>
@@ -193,9 +193,9 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="bg-[#090E17] py-12 border-b border-white/10 overflow-hidden relative select-none">
-          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#090E17] to-transparent z-10 pointer-events-none" />
-          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#090E17] to-transparent z-10 pointer-events-none" />
+        <section className="bg-[#0F172A] py-12 border-b border-white/10 overflow-hidden relative select-none">
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#0F172A] to-transparent z-10 pointer-events-none" />
+          <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#0F172A] to-transparent z-10 pointer-events-none" />
           <div className="max-w-7xl mx-auto px-6 mb-4 text-center reveal-up">
             <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-slate-500">// TECHNOLOGY PARTNERS & INTEGRATION CAPABILITIES</span>
           </div>

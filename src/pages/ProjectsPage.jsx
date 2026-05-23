@@ -95,7 +95,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* 2. CATEGORY FILTERS */}
-      <section className="bg-[#090E17] py-8 px-6 md:px-20 border-b border-white/10">
+      <section className="bg-[#0F172A] py-8 px-6 md:px-20 border-b border-white/10">
         <div className="max-w-7xl mx-auto flex flex-wrap gap-3 items-center">
           <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mr-4 font-mono">// Filters:</span>
           {categories.map((cat) => (
