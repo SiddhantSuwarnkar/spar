@@ -79,7 +79,7 @@ export default function AboutPage() {
           <span className="text-[#0EA5E9] font-bold tracking-[0.4em] uppercase mb-6 block text-sm shadow-sm">
             Our Origin Story
           </span>
-          <h1 className="text-6xl md:text-8xl lg:text-[120px] font-black font-headings tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#0EA5E9]">
+          <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[120px] font-black font-headings tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#0EA5E9] break-words">
             Beyond <br /> Boundaries.
           </h1>
         </div>
@@ -91,7 +91,7 @@ export default function AboutPage() {
         {/* Left: Sticky Text Container */}
         <div className="md:w-5/12 md:sticky top-0 h-auto md:min-h-screen flex flex-col justify-center p-10 md:p-20 bg-[#1E293B]/50 backdrop-blur-md border-r border-white/10 shadow-[10px_0_30px_rgba(0,0,0,0.5)] z-10">
           <div className="max-w-md reveal-up">
-            <h2 className="text-4xl md:text-6xl font-black font-headings mb-8 text-[#F8FAFC] leading-[1.1]">
+            <h2 className="text-3xl md:text-6xl font-black font-headings mb-8 text-[#F8FAFC] leading-[1.1] break-words">
               We don't just build robots. <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0EA5E9] to-indigo-500">
                 We engineer evolution.

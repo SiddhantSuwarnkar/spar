@@ -46,14 +46,15 @@ export default function Hero() {
     if (!video) return;
 
     const initAnimation = contextSafe(() => {
+      if (isMobile) {
+        gsap.set([card1Ref.current, card2Ref.current, card3Ref.current, hudRef.current], { display: "none" });
+        return;
+      }
+
       const masterTl = gsap.timeline({ paused: true });
 
       const dur = video.duration && !isNaN(video.duration) ? video.duration : 10;
-      
-      // Only scrub video on desktop. On mobile, it auto-plays.
-      if (!isMobile) {
-        masterTl.to(video, { currentTime: dur, ease: "none", duration: 10 }, 0);
-      }
+      masterTl.to(video, { currentTime: dur, ease: "none", duration: 10 }, 0);
 
       masterTl
         .addLabel("trans1", 1)

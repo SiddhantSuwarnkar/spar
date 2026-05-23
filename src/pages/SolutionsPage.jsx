@@ -170,7 +170,7 @@ export default function SolutionsPage() {
           <span className="text-[#0EA5E9] font-bold tracking-[0.4em] uppercase mb-6 block text-sm shadow-sm font-mono">
             Products & Core Engineering
           </span>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black font-headings tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#0EA5E9]">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black font-headings tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#0EA5E9] break-words">
             Precision Engineering <br/> for Complex Operations.
           </h1>
           <p className="text-slate-300 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-normal">

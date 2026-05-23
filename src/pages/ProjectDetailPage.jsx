@@ -113,7 +113,7 @@ export default function ProjectDetailPage() {
             </span>
           </div>
           
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight font-headings">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight font-headings break-words">
             {project.title}
           </h1>
         </div>
