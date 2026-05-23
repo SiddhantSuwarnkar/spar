@@ -8,6 +8,12 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Hero() {
   const sectionRef = useRef(null);
   const videoRef = useRef(null);
+  
+  const [videoSrc] = useState(() => 
+    typeof window !== 'undefined' && window.innerWidth < 768 
+      ? "/mobile_scrub.mp4" 
+      : "/optimized_scrub.mp4"
+  );
 
   const heroBoxRef = useRef(null);
   // Vision Cards Refs
@@ -84,7 +90,7 @@ export default function Hero() {
       
       <video
         ref={videoRef}
-        src="/optimized_scrub.mp4"
+        src={videoSrc}
         playsInline
         muted
         preload="auto"
