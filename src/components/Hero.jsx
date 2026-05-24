@@ -106,7 +106,7 @@ export default function Hero() {
       {/* Centered Heading and SPAR Logo container */}
       <div
         ref={heroBoxRef}
-        className="absolute inset-x-0 z-30 flex flex-col items-center justify-center text-center px-6 pointer-events-none top-1/2 -translate-y-1/2 bottom-auto md:top-auto md:bottom-24 md:translate-y-0 filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]"
+        className="fixed inset-x-0 z-30 flex flex-col items-center justify-center text-center px-6 pointer-events-none top-1/2 -translate-y-1/2 bottom-auto md:top-auto md:bottom-24 md:translate-y-0 filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]"
       >
         {/* SPAR Logo with Subtle Pulsing Animation */}
         <div className="mb-6 md:mb-6 animate-pulse" style={{ animationDuration: '4s' }}>
