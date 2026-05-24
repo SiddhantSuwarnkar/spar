@@ -146,7 +146,7 @@ export default function AboutPage() {
       <section className="py-24 px-6 md:px-20 bg-[#0F172A] relative overflow-hidden z-20 border-t border-white/5">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0EA5E9]/5 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
-          
+
           {/* Mission Card */}
           <div className="reveal-up bg-[#1E293B]/40 backdrop-blur-sm p-10 md:p-12 rounded-sm border border-white/10 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:border-[#0EA5E9]/50 transition-colors duration-500">
             <div className="w-12 h-12 bg-[#0EA5E9]/10 rounded-sm flex items-center justify-center mb-8 border border-[#0EA5E9]/20">
@@ -157,7 +157,7 @@ export default function AboutPage() {
               To completely eliminate production bottlenecks and guarantee zero-defect manufacturing through intelligent, autonomous systems.
             </p>
           </div>
-          
+
           {/* Quality Card */}
           <div className="reveal-up bg-[#1E293B]/40 backdrop-blur-sm p-10 md:p-12 rounded-sm border border-white/10 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] hover:border-[#0EA5E9]/50 transition-colors duration-500">
             <div className="w-12 h-12 bg-[#0EA5E9]/10 rounded-sm flex items-center justify-center mb-8 border border-[#0EA5E9]/20">
@@ -168,7 +168,7 @@ export default function AboutPage() {
               Every robotic cell is aggressively stress-tested under maximum thermal and kinetic loads in our clean-rooms before deployment.
             </p>
           </div>
-          
+
         </div>
       </section>
 

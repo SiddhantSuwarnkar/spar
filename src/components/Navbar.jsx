@@ -42,7 +42,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 transition-all duration-300 bg-[#090E17]/75 backdrop-blur-xl border border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.5)] rounded-md ${
+      className={`fixed left-1/2 -translate-x-1/2 w-[95%] max-w-7xl z-50 transition-all duration-300 bg-[#090E17]/30 backdrop-blur-md border border-white/[0.08] shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] rounded-md ${
         isScrolled ? 'top-2 py-1.5' : 'top-6 py-2.5'
       }`}
     >
@@ -125,7 +125,7 @@ export default function Navbar() {
 
       {/* Mobile Menu Dropdown */}
       <div 
-        className={`md:hidden absolute top-full left-0 w-full bg-[#090E17]/95 backdrop-blur-xl border-t border-white/10 shadow-2xl overflow-hidden transition-all duration-300 ease-in-out ${
+        className={`md:hidden absolute top-full left-0 w-full bg-[#090E17]/80 backdrop-blur-lg border-t border-white/[0.08] shadow-2xl overflow-hidden transition-all duration-300 ease-in-out ${
           isMobileMenuOpen ? 'max-h-[400px] py-6' : 'max-h-0 py-0 border-transparent'
         } flex flex-col items-center gap-6 rounded-b-md`}
       >
