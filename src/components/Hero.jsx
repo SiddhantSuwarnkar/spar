@@ -28,6 +28,12 @@ export default function Hero() {
     const video = videoRef.current;
     if (!video) return;
 
+    if (isMobile) {
+      // On mobile: play video in a loop, no scroll-trigger animation
+      video.play().catch(err => console.log("Video autoPlay failed:", err));
+      return;
+    }
+
     const initAnimation = contextSafe(() => {
       const masterTl = gsap.timeline({ paused: true });
 
@@ -37,7 +43,7 @@ export default function Hero() {
       // Smoothly fade out and scale down the centered logo & heading as scrolling begins
       masterTl.to(heroBoxRef.current, {
         opacity: 0,
-        y: 40,
+        y: -40,
         scale: 0.95,
         duration: 3,
         ease: "power1.out"
@@ -60,8 +66,7 @@ export default function Hero() {
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
-        end: isMobile ? "+=2000" : "+=4000",
-        pin: true,
+        end: "bottom bottom",
         animation: masterTl,
         scrub: 1, // Smooth scrolling control
       });
@@ -73,47 +78,51 @@ export default function Hero() {
       video.addEventListener('loadedmetadata', initAnimation, { once: true });
       return () => video.removeEventListener('loadedmetadata', initAnimation);
     }
-  }, { dependencies: [videoSrc, isMobile] });
+  }, { dependencies: [isMobile] });
 
   return (
-    <section ref={sectionRef} className="w-full h-screen relative bg-[#090E17] overflow-hidden">
+    <section 
+      ref={sectionRef} 
+      className="w-full relative bg-[#090E17] h-screen md:h-[300vh] z-10"
+    >
+      <div className="sticky top-0 w-full h-screen overflow-hidden">
+        <video
+          key={videoSrc}
+          ref={videoRef}
+          src={videoSrc}
+          playsInline
+          muted
+          preload="auto"
+          autoPlay={isMobile}
+          loop={isMobile}
+          className="absolute inset-0 w-full h-full object-cover opacity-80"
+        />
+        {/* Cinematic dark overlay to enhance text and logo visibility, fades out on scroll */}
+        <div
+          ref={overlayRef}
+          className="absolute inset-0 bg-gradient-to-b from-transparent via-[#090E17]/25 to-[#090E17]/75 z-10 pointer-events-none"
+        />
+        <NoiseOverlay />
 
-      <video
-        key={videoSrc}
-        ref={videoRef}
-        src={videoSrc}
-        playsInline
-        muted
-        preload="auto"
-        autoPlay={isMobile}
-        loop={isMobile}
-        className="absolute inset-0 w-full h-full object-cover opacity-80"
-      />
-      {/* Cinematic dark overlay to enhance text and logo visibility, fades out on scroll */}
-      <div
-        ref={overlayRef}
-        className="absolute inset-0 bg-gradient-to-b from-transparent via-[#090E17]/25 to-[#090E17]/75 z-10 pointer-events-none"
-      />
-      <NoiseOverlay />
+        {/* Centered Heading and SPAR Logo container */}
+        <div
+          ref={heroBoxRef}
+          className="absolute inset-x-0 z-40 flex flex-col items-center justify-center text-center px-6 pointer-events-none top-1/2 -translate-y-1/2 bottom-auto md:top-auto md:bottom-24 md:translate-y-0"
+        >
+          {/* SPAR Logo with Subtle Pulsing Animation */}
+          <div className="mb-6 md:mb-6 animate-pulse" style={{ animationDuration: '4s' }}>
+            <img
+              src="/logo.png"
+              alt="SPAR Logo"
+              className="h-20 md:h-24 w-auto object-contain drop-shadow-[0_0_20px_rgba(14,165,233,0.25)]"
+            />
+          </div>
 
-      {/* Centered Heading and SPAR Logo at the bottom of the viewport */}
-      <div
-        ref={heroBoxRef}
-        className="absolute inset-x-0 bottom-16 md:bottom-24 z-40 flex flex-col items-center justify-center text-center px-6 pointer-events-none"
-      >
-        {/* SPAR Logo with Subtle Pulsing Animation */}
-        <div className="mb-4 md:mb-6 animate-pulse" style={{ animationDuration: '4s' }}>
-          <img
-            src="/logo.png"
-            alt="SPAR Logo"
-            className="h-16 md:h-24 w-auto object-contain drop-shadow-[0_0_20px_rgba(14,165,233,0.25)]"
-          />
+          {/* Big Centered Heading with Slate-Blue Gradient */}
+          <h1 className="text-5xl sm:text-6xl md:text-8xl lg:text-[100px] font-black font-headings tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#0EA5E9] break-words leading-[1.1] max-w-5xl pb-2 drop-shadow-[0_4px_16px_rgba(0,0,0,0.65)]">
+            Engineered <br className="md:hidden" /> Perfection
+          </h1>
         </div>
-
-        {/* Big Centered Heading with Slate-Blue Gradient */}
-        <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[100px] font-black font-headings tracking-tighter mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-[#0EA5E9] break-words">
-          Engineered <br className="md:hidden" /> Perfection
-        </h1>
       </div>
     </section>
   );
