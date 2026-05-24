@@ -34,7 +34,6 @@ export default function Navbar() {
   // Determine active classes
   const isHome = path === '/';
   const isSolutions = path === '/solutions';
-  const isRoboticArm = path === '/robotic-arm';
   const isProjects = path.startsWith('/projects');
   const isAbout = path === '/about';
 
@@ -90,15 +89,6 @@ export default function Navbar() {
             }`}
           >
             Solutions
-          </a>
-          <a
-            href="/robotic-arm"
-            onClick={(e) => handleLinkClick(e, '/robotic-arm')}
-            className={`transition-colors duration-200 hover:text-white ${
-              isRoboticArm ? 'text-[#0EA5E9] border-b-2 border-[#0EA5E9] pb-1' : ''
-            }`}
-          >
-            Robotic Arm
           </a>
           <a
             href="/projects"
@@ -174,18 +164,6 @@ export default function Navbar() {
           }`}
         >
           Solutions
-        </a>
-        <a
-          href="/robotic-arm"
-          onClick={(e) => {
-            handleLinkClick(e, '/robotic-arm');
-            setIsMobileMenuOpen(false);
-          }}
-          className={`text-sm font-semibold tracking-wider font-headings transition-colors duration-200 hover:text-white ${
-            isRoboticArm ? 'text-[#0EA5E9]' : 'text-slate-300'
-          }`}
-        >
-          Robotic Arm
         </a>
         <a
           href="/projects"

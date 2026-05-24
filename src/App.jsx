@@ -69,7 +69,7 @@ function AppContent() {
   const renderPage = () => {
     if (path === '/') return <HomePage />;
     if (path === '/solutions') return <SolutionsPage />;
-    if (path === '/robotic-arm') return <RoboticArmPage />;
+    if (path.startsWith('/robotic-arm')) return <RoboticArmPage />;
     if (path === '/projects') return <ProjectsPage />;
     if (path.startsWith('/projects/')) return <ProjectDetailPage />;
     if (path === '/about') return <AboutPage />;

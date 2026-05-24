@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage, useGLTF } from '@react-three/drei';
+import { useNavigation } from '../context/NavigationContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -102,6 +103,7 @@ const PlaceholderModel = () => {
 };
 
 export default function SolutionsPage() {
+  const { navigate } = useNavigation();
   const containerRef = useRef(null);
   const productRowsRef = useRef([]);
 
@@ -231,6 +233,19 @@ export default function SolutionsPage() {
 
                   {/* Interactive Spec Board */}
                   <SpecBoard details={prod.details} />
+
+                  {/* 3D Showcase Link Buttons */}
+                  {prod.id !== 1 && (
+                    <div className="mt-8">
+                      <button
+                        onClick={() => navigate(prod.id === 2 ? '/robotic-arm/assembly' : '/robotic-arm/welding')}
+                        className="inline-flex items-center gap-2 px-6 py-3 border border-[#0EA5E9]/40 hover:border-[#0EA5E9] bg-[#0F172A] hover:bg-[#0EA5E9]/10 text-white hover:text-[#0EA5E9] font-mono text-xs font-bold tracking-widest uppercase transition-all duration-300 rounded-sm group shadow-md"
+                      >
+                        <span>Explore Interactive 3D Showcase</span>
+                        <span className="group-hover:translate-x-1.5 transition-transform duration-300">→</span>
+                      </button>
+                    </div>
+                  )}
 
                 </div>
 
